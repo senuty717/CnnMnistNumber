@@ -85,7 +85,6 @@ table {
 /* Color de texto blanco para encabezados, párrafos y otros elementos específicos */
 h1, p, table th, table td {
     color: white; /* Cambiar el color a blanco para los elementos seleccionados */
-    display: flex; /* Usar flexbox para alinear elementos internos */
     flex-direction: column; /* Disposición de los elementos en columna */
     align-items: center; /* Centrar elementos en el eje horizontal */
 }
