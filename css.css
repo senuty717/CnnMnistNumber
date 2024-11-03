@@ -98,7 +98,7 @@ h1, p, table th, table td {
 }
 
 th {
-    background: #573b8a; /* Fondo morado para el encabezado */
+    background: linear-gradient(135deg, #573b8a, #9070d8); /* Degradado de fondo para el encabezado */
     border: 2px solid #fff; /* Borde blanco de 2 píxeles */
     padding: 10px; /* Espacio interno para el encabezado */
     text-align: center; /* Centrar el texto en el encabezado */
