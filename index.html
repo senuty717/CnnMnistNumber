@@ -45,15 +45,11 @@
             <canvas id="minicanvas" width="28" height="28" style="display: none"></canvas>
             <!-- Canvas oculto de 28x28 píxeles para enviar a la red neuronal -->
           </div>
-          <div>
-										
+          <div class="button-container"> <!-- Contenedor para los botones -->
             <button id="limpiar" onclick="limpiar()" class="btn"><b>Limpiar</b></button>
             <!-- Botón para limpiar el dibujo del usuario -->
-            <div>
-										   
-              <button id="predecir" onclick="predecir()" class="btn"><b>Predecir</b></button>
-              <!-- Botón para realizar la predicción del número dibujado -->
-            </div>
+            <button id="predecir" onclick="predecir()" class="btn"><b>Predecir</b></button>
+            <!-- Botón para limpiar el dibujo del usuario -->
           </div>
         </div>
       </div>
@@ -145,41 +141,35 @@
 
       // Convierte los datos de la imagen en un arreglo de blanco y negro
       for (var p = 0, i = 0; p < imgData.data.length; p += 4) {
-										 
         var valor = imgData.data[p + 3] / 255; // Normaliza valor alfa de 0 a 1
         arr28.push([valor]); // Agrega al subarreglo
         if (arr28.length == 28) {
-									 
           arr.push(arr28);
           arr28 = [];
         }
       }
 
       arr = [arr]; // Organiza el arreglo en la forma requerida para Tensor4D (1,28,28,1)
-																								
+
       var tensor4 = tf.tensor4d(arr); // Crea el tensor necesario para el modelo
 
       // Predicción de cada modelo y muestra de resultados en la tabla
       var resultados = modelo.predict(tensor4).dataSync();
-																												 
+
       var mayorIndice = resultados.indexOf(Math.max.apply(null, resultados));
       console.log("Prediccion 1", mayorIndice);
-											   
       document.getElementById("resultado").innerHTML = mayorIndice;
 
-				
       var resultados = modelo2.predict(tensor4).dataSync();
       var mayorIndice = resultados.indexOf(Math.max.apply(null, resultados));
       console.log("Prediccion 2", mayorIndice);
       document.getElementById("resultado2").innerHTML = mayorIndice;
 
-				
       var resultados = modelo3.predict(tensor4).dataSync();
       var mayorIndice = resultados.indexOf(Math.max.apply(null, resultados));
       console.log("Prediccion 3", mayorIndice);
       document.getElementById("resultado3").innerHTML = mayorIndice;
 
-				
       var resultados = modelo4.predict(tensor4).dataSync();
       var mayorIndice = resultados.indexOf(Math.max.apply(null, resultados));
       console.log("Prediccion 4", mayorIndice);
@@ -227,18 +217,14 @@
             for (var xx = xx_start; xx < xx_stop; xx++) {
               var dx = Math.abs(center_x - (xx + 0.5)) / ratio_w_half;
               var w = Math.sqrt(w0 + dx * dx);
-						   
-							   
               if (w >= 1) continue;
-			   
-							  
+
               weight = 2 * w * w * w - 3 * w * w + 1;
               var pos_x = 4 * (xx + yy * width_source);
-					 
+
               gx_a += weight * data[pos_x + 3];
               weights_alpha += weight;
-					  
-										
+
               if (data[pos_x + 3] < 255) weight = weight * data[pos_x + 3] / 250;
               gx_r += weight * data[pos_x];
               gx_g += weight * data[pos_x + 1];
@@ -256,10 +242,8 @@
     }
 
     // Carga de modelos de forma asíncrona desde URLs de archivos JSON
-					 
     (async () => {
       console.log("Cargando modelo 1...");
-															   
       modelo = await tf.loadLayersModel("https://raw.githubusercontent.com/senuty717/Number/main/modelo_1.json");
       console.log("Modelo 1 cargado...");
 
@@ -274,7 +258,6 @@
       console.log("Cargando modelo 4...");
       modelo4 = await tf.loadLayersModel("https://raw.githubusercontent.com/senuty717/Number/main/modelo_4.json");
       console.log("Modelo 4 cargado...");
-
     })();
   </script>
 </body>
