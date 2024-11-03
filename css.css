@@ -47,7 +47,7 @@ button {
     color: white; /* Color de texto blanco */
     font-size: 16px; /* Tamaño de fuente para el texto del botón */
     padding: 10px 20px; /* Relleno interno para aumentar el tamaño del botón */
-    margin: 5px; /* Espacio entre botones */
+    margin: 20px 5px 5px; /* Espacio entre botones */
     border-radius: 5px; /* Bordes redondeados para un aspecto más suave */
     cursor: pointer; /* Cambia el cursor a "pointer" al pasar sobre el botón */
     transition: background 0.3s, transform 0.2s; /* Suaviza la transición para el fondo y el efecto de clic */
