@@ -44,7 +44,6 @@ body {
 /* Estilo de los botones */
 button {
     background: linear-gradient(135deg, #573b8a, #9070d8); /* Degradado de fondo del botón */
-    border: none; /* Quita el borde predeterminado */
     color: white; /* Color de texto blanco */
     font-size: 16px; /* Tamaño de fuente para el texto del botón */
     padding: 10px 20px; /* Relleno interno para aumentar el tamaño del botón */
