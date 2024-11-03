@@ -13,14 +13,16 @@ body {
 
 /* Estilo para el contenedor principal */
 .main {
+    display: flex; /* Usar flexbox para alinear elementos internos */
+    flex-direction: column; /* Disposición de los elementos en columna */
+    align-items: center; /* Centrar elementos en el eje horizontal */
+    justify-content: center; /* Centrar elementos en el eje vertical */
+    text-align: center; /* Centrar el texto dentro de los elementos */
     width: 90%; /* Ancho del contenedor en porcentaje para ser más flexible */
     max-width: 800px; /* Ancho máximo de 800px para evitar que se estire demasiado */
     height: auto; /* Altura automática para ajustarse al contenido */
     border-radius: 10px; /* Bordes redondeados */
     padding: 20px; /* Espacio alrededor del contenido */
-    display: flex; /* Usar flexbox para alinear elementos internos */
-    flex-direction: column; /* Disposición de los elementos en columna */
-    align-items: center; /* Centrar elementos en el eje horizontal */
 }
 
 /* Estilo para el contenedor de canvas */
