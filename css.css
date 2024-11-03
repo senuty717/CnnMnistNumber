@@ -51,7 +51,6 @@ button {
     border-radius: 5px; /* Bordes redondeados para un aspecto más suave */
     cursor: pointer; /* Cambia el cursor a "pointer" al pasar sobre el botón */
     transition: background 0.3s, transform 0.2s; /* Suaviza la transición para el fondo y el efecto de clic */
-    display: flex; /* Para centrar el texto del botón */
     justify-content: center; /* Centrar horizontalmente */
     align-items: center; /* Centrar verticalmente */
 }
@@ -60,17 +59,11 @@ button {
 button:hover {
     background: linear-gradient(135deg, #9070d8, #573b8a); /* Invertir el degradado en hover */
     transform: scale(1.05); /* Escala ligeramente el botón al pasar el cursor */
-    display: flex; /* Usar flexbox para alinear elementos internos */
-    flex-direction: column; /* Disposición de los elementos en columna */
-    align-items: center; /* Centrar elementos en el eje horizontal */
 }
 
 /* Efecto de clic para los botones */
 button:active {
     transform: scale(0.95); /* Reduce ligeramente el tamaño del botón al hacer clic */
-    display: flex; /* Usar flexbox para alinear elementos internos */
-    flex-direction: column; /* Disposición de los elementos en columna */
-    align-items: center; /* Centrar elementos en el eje horizontal */
 }
 
 /* Estilo para la tabla */
