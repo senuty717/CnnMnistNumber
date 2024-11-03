@@ -1,0 +1,95 @@
+/* Estilo general del cuerpo */
+body {
+    margin: 0; /* Eliminar el margen predeterminado del navegador */
+    padding: 0; /* Eliminar el padding predeterminado del navegador */
+    display: flex; /* Usar flexbox para centrar el contenido */
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    min-height: 100vh; /* Altura mínima para ocupar toda la ventana */
+    font-family: 'Jost', sans-serif; /* Tipografía utilizada */
+    background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e); /* Degradado de fondo */
+    color: white; /* Color de texto blanco para todo el cuerpo */
+}
+
+/* Estilo para el contenedor principal */
+.main {
+    width: 90%; /* Ancho del contenedor en porcentaje para ser más flexible */
+    max-width: 800px; /* Ancho máximo de 800px para evitar que se estire demasiado */
+    height: auto; /* Altura automática para ajustarse al contenido */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 20px; /* Espacio alrededor del contenido */
+    display: flex; /* Usar flexbox para alinear elementos internos */
+    flex-direction: column; /* Disposición de los elementos en columna */
+    align-items: center; /* Centrar elementos en el eje horizontal */
+}
+
+/* Estilo para el contenedor de canvas */
+#contenedor-canvas {
+    display: flex; /* Usar flexbox para alinear elementos internos */
+    flex-direction: column; /* Disposición de los elementos en columna */
+    align-items: center; /* Centrar elementos en el eje horizontal */
+}
+
+/* Estilo para el canvas principal */
+#grancanvas {
+    display: flex; /* Flexbox para el canvas */
+    flex-direction: column; /* Elementos en columna */
+    align-items: center; /* Centrar contenido */
+    background: #fff; /* Fondo blanco para el canvas */
+    border: 2px solid #fff; /* Borde blanco de 2 píxeles */
+}
+
+/* Estilo de los botones */
+button {
+    background: linear-gradient(135deg, #573b8a, #9070d8); /* Degradado de fondo del botón */
+    border: none; /* Quita el borde predeterminado */
+    color: white; /* Color de texto blanco */
+    font-size: 16px; /* Tamaño de fuente para el texto del botón */
+    padding: 10px 20px; /* Relleno interno para aumentar el tamaño del botón */
+    margin: 5px; /* Espacio entre botones */
+    border-radius: 5px; /* Bordes redondeados para un aspecto más suave */
+    cursor: pointer; /* Cambia el cursor a "pointer" al pasar sobre el botón */
+    transition: background 0.3s, transform 0.2s; /* Suaviza la transición para el fondo y el efecto de clic */
+    display: flex; /* Para centrar el texto del botón */
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+}
+
+/* Efecto hover para los botones */
+button:hover {
+    background: linear-gradient(135deg, #9070d8, #573b8a); /* Invertir el degradado en hover */
+    transform: scale(1.05); /* Escala ligeramente el botón al pasar el cursor */
+}
+
+/* Efecto de clic para los botones */
+button:active {
+    transform: scale(0.95); /* Reduce ligeramente el tamaño del botón al hacer clic */
+}
+
+/* Estilo para la tabla */
+table {
+    margin-top: 20px; /* Espacio arriba de la tabla */
+    width: 100%; /* Ancho completo del contenedor */
+    border-collapse: separate; /* Evita el colapso de bordes */
+}
+
+/* Clase para resultados */
+.resultado {
+    font-weight: bold; /* Texto en negrita */
+    text-align: center; /* Alinear el texto al centro */
+    padding: 10px; /* Espacio alrededor del texto */
+    font-size: 24px; /* Aumentar tamaño de fuente */
+    border: 2px solid white; /* Borde blanco */
+}
+
+/* Color de texto blanco para encabezados, párrafos y otros elementos específicos */
+h1, p, table th, table td {
+    color: white; /* Cambiar el color a blanco para los elementos seleccionados */
+}
+
+th {
+    background: #573b8a; /* Fondo morado para el encabezado */
+    border: 2px solid #fff; /* Borde blanco de 2 píxeles */
+    padding: 10px; /* Espacio interno para el encabezado */
+    text-align: center; /* Centrar el texto en el encabezado */
+}
