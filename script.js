@@ -26,7 +26,7 @@ function predecir() {
   var arr28 = []; // Subarreglo de 28 píxeles que se agregará a `arr`
 
   // Convierte los datos de la imagen en un arreglo de blanco y negro
-  for (var p = 0, i = 0; p < imgData.data.length; p += 4) {
+  for (var p = 0; p < imgData.data.length; p += 4) {
     var valor = imgData.data[p + 3] / 255; // Normaliza valor alfa de 0 a 1
     arr28.push([valor]); // Agrega al subarreglo
     if (arr28.length == 28) {
@@ -38,49 +38,73 @@ function predecir() {
   arr = [arr]; // Organiza el arreglo en la forma requerida para Tensor4D (1,28,28,1)
   var tensor4 = tf.tensor4d(arr); // Crea el tensor necesario para el modelo
 
-  // **Predicción de cada modelo**
+  // **Predicción para el Modelo 1**
   var inicio1 = performance.now();
   var resultados = modelo.predict(tensor4).dataSync();
   var mayorIndice1 = resultados.indexOf(Math.max.apply(null, resultados));
   var fin1 = performance.now();
   var tiempo1 = fin1 - inicio1;
-  console.log("Predicción 1", mayorIndice1, "Tiempo:", tiempo1.toFixed(2) + " ms");
+
+  // Obtener Top 3 para el Modelo 1
+  var top3_1 = obtenerTop3(resultados);
+  console.log("Predicción 1", mayorIndice1, "Top 3:", top3_1, "Tiempo:", tiempo1.toFixed(2) + " ms");
   document.getElementById("resultado").innerHTML = mayorIndice1;
 
+  // **Predicción para el Modelo 2**
   var inicio2 = performance.now();
   var resultados2 = modelo2.predict(tensor4).dataSync();
   var mayorIndice2 = resultados2.indexOf(Math.max.apply(null, resultados2));
   var fin2 = performance.now();
   var tiempo2 = fin2 - inicio2;
-  console.log("Predicción 2", mayorIndice2, "Tiempo:", tiempo2.toFixed(2) + " ms");
+
+  // Obtener Top 3 para el Modelo 2
+  var top3_2 = obtenerTop3(resultados2);
+  console.log("Predicción 2", mayorIndice2, "Top 3:", top3_2, "Tiempo:", tiempo2.toFixed(2) + " ms");
   document.getElementById("resultado2").innerHTML = mayorIndice2;
 
+  // **Predicción para el Modelo 3**
   var inicio3 = performance.now();
   var resultados3 = modelo3.predict(tensor4).dataSync();
   var mayorIndice3 = resultados3.indexOf(Math.max.apply(null, resultados3));
   var fin3 = performance.now();
   var tiempo3 = fin3 - inicio3;
-  console.log("Predicción 3", mayorIndice3, "Tiempo:", tiempo3.toFixed(2) + " ms");
+
+  // Obtener Top 3 para el Modelo 3
+  var top3_3 = obtenerTop3(resultados3);
+  console.log("Predicción 3", mayorIndice3, "Top 3:", top3_3, "Tiempo:", tiempo3.toFixed(2) + " ms");
   document.getElementById("resultado3").innerHTML = mayorIndice3;
 
+  // **Predicción para el Modelo 4**
   var inicio4 = performance.now();
   var resultados4 = modelo4.predict(tensor4).dataSync();
   var mayorIndice4 = resultados4.indexOf(Math.max.apply(null, resultados4));
   var fin4 = performance.now();
   var tiempo4 = fin4 - inicio4;
-  console.log("Predicción 4", mayorIndice4, "Tiempo:", tiempo4.toFixed(2) + " ms");
+
+  // Obtener Top 3 para el Modelo 4
+  var top3_4 = obtenerTop3(resultados4);
+  console.log("Predicción 4", mayorIndice4, "Top 3:", top3_4, "Tiempo:", tiempo4.toFixed(2) + " ms");
   document.getElementById("resultado4").innerHTML = mayorIndice4;
 
-  // **Cálculo de tiempos promedio y modelos más rápido/lento**
-  const tiempos = [tiempo1, tiempo2, tiempo3, tiempo4];
-  const tiempoPromedio = (tiempos.reduce((a, b) => a + b, 0) / tiempos.length).toFixed(2);
-  const modeloMasRapido = tiempos.indexOf(Math.min(...tiempos)) + 1;
-  const modeloMasLento = tiempos.indexOf(Math.max(...tiempos)) + 1;
+  // Mostrar información adicional sobre los tiempos de predicción
+  console.log("Modelo más rápido:", Math.min(tiempo1, tiempo2, tiempo3, tiempo4), "ms");
+  console.log("Modelo más lento:", Math.max(tiempo1, tiempo2, tiempo3, tiempo4), "ms");
+}
 
-  // Mostrar información adicional en la consola
-  console.log(`Tiempo promedio: ${tiempoPromedio} ms`);
-  console.log(`Modelo más rápido: Modelo ${modeloMasRapido}`);
-  console.log(`Modelo más lento: Modelo ${modeloMasLento}`);
+// **Función para obtener los Top 3 valores y sus índices**
+function obtenerTop3(predicciones) {
+  // Convertir a un arreglo de objetos con índice y valor
+  const prediccionesConIndices = Array.from(predicciones).map((valor, indice) => ({ indice, valor }));
+
+  // Ordenar de mayor a menor según el valor
+  prediccionesConIndices.sort((a, b) => b.valor - a.valor);
+
+  // Tomar los 3 primeros valores
+  return prediccionesConIndices.slice(0, 3).map(item => ({
+    clase: item.indice,
+    confianza: (item.valor * 100).toFixed(2) + "%",
+  }));
+}
 
   // **Mostrar probabilidades completas**
   function mostrarProbabilidades(resultados, modelo) {
