@@ -91,21 +91,6 @@ function predecir() {
   console.log("Modelo más lento:", Math.max(tiempo1, tiempo2, tiempo3, tiempo4), "ms");
 }
 
-// **Función para obtener los Top 3 valores y sus índices**
-function obtenerTop3(predicciones) {
-  // Convertir a un arreglo de objetos con índice y valor
-  const prediccionesConIndices = Array.from(predicciones).map((valor, indice) => ({ indice, valor }));
-
-  // Ordenar de mayor a menor según el valor
-  prediccionesConIndices.sort((a, b) => b.valor - a.valor);
-
-  // Tomar los 3 primeros valores
-  return prediccionesConIndices.slice(0, 3).map(item => ({
-    clase: item.indice,
-    confianza: (item.valor * 100).toFixed(2) + "%",
-  }));
-}
-
   // **Mostrar probabilidades completas**
   function mostrarProbabilidades(resultados, modelo) {
     const probabilidades = Array.from(resultados)
