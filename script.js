@@ -42,22 +42,22 @@
       var resultados = modelo.predict(tensor4).dataSync();
       var mayorIndice1 = resultados.indexOf(Math.max.apply(null, resultados));
       console.log("Prediccion 1", mayorIndice1);
-      document.getElementById("resultado").innerHTML = mayorIndice;
+      document.getElementById("resultado").innerHTML = mayorIndice1;
 
       var resultados = modelo2.predict(tensor4).dataSync();
       var mayorIndice2 = resultados.indexOf(Math.max.apply(null, resultados));
       console.log("Prediccion 2", mayorIndice2);
-      document.getElementById("resultado2").innerHTML = mayorIndice;
+      document.getElementById("resultado2").innerHTML = mayorIndice2;
 
       var resultados = modelo3.predict(tensor4).dataSync();
       var mayorIndice3 = resultados.indexOf(Math.max.apply(null, resultados));
       console.log("Prediccion 3", mayorIndice3);
-      document.getElementById("resultado3").innerHTML = mayorIndice;
+      document.getElementById("resultado3").innerHTML = mayorIndice3;
 
       var resultados = modelo4.predict(tensor4).dataSync();
       var mayorIndice4 = resultados.indexOf(Math.max.apply(null, resultados));
       console.log("Prediccion 4", mayorIndice4);
-      document.getElementById("resultado4").innerHTML = mayorIndice;
+      document.getElementById("resultado4").innerHTML = mayorIndice4;
 
         // Crear un objeto con los resultados
 const predicciones = [mayorIndice1, mayorIndice2, mayorIndice3, mayorIndice4];
