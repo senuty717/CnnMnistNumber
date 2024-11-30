@@ -38,70 +38,36 @@
 
       var tensor4 = tf.tensor4d(arr); // Crea el tensor necesario para el modelo
 
-  // Medir tiempo total de predicción
-  console.time("Tiempo total");
-  
-  // Crear un objeto para almacenar resultados y tiempos
-  let prediccionesConTiempos = {
-    modelo1: { tiempo: 0, prediccion: null, probabilidades: null, imagen: arr, tensor: tensor4.shape },
-    modelo2: { tiempo: 0, prediccion: null, probabilidades: null, imagen: arr, tensor: tensor4.shape },
-    modelo3: { tiempo: 0, prediccion: null, probabilidades: null, imagen: arr, tensor: tensor4.shape },
-    modelo4: { tiempo: 0, prediccion: null, probabilidades: null, imagen: arr, tensor: tensor4.shape }
-  };
+      // Predicción de cada modelo y muestra de resultados en la tabla
+      var resultados = modelo.predict(tensor4).dataSync();
+      var mayorIndice1 = resultados.indexOf(Math.max.apply(null, resultados));
+      console.log("Prediccion 1", mayorIndice1);
+      document.getElementById("resultado").innerHTML = mayorIndice1;
 
-  // Predicción modelo 1
-  console.time("Tiempo modelo 1");
-  var resultados = modelo.predict(tensor4).dataSync();
-  console.timeEnd("Tiempo modelo 1");
-  var mayorIndice1 = resultados.indexOf(Math.max.apply(null, resultados));
-  prediccionesConTiempos.modelo1.tiempo = performance.now(); // Tiempo para el modelo 1
-  prediccionesConTiempos.modelo1.prediccion = mayorIndice1;
-  prediccionesConTiempos.modelo1.probabilidades = resultados;
+      var resultados = modelo2.predict(tensor4).dataSync();
+      var mayorIndice2 = resultados.indexOf(Math.max.apply(null, resultados));
+      console.log("Prediccion 2", mayorIndice2);
+      document.getElementById("resultado2").innerHTML = mayorIndice2;
 
-  // Predicción para el modelo 2
-  console.time("Tiempo modelo 2");
-  var resultados2 = modelo2.predict(tensor4).dataSync();
-  console.timeEnd("Tiempo modelo 2");
-  var mayorIndice2 = resultados2.indexOf(Math.max.apply(null, resultados2));
-  prediccionesConTiempos.modelo2.tiempo = performance.now(); // Tiempo para el modelo 2
-  prediccionesConTiempos.modelo2.prediccion = mayorIndice2;
-  prediccionesConTiempos.modelo2.probabilidades = resultados2;
+      var resultados = modelo3.predict(tensor4).dataSync();
+      var mayorIndice3 = resultados.indexOf(Math.max.apply(null, resultados));
+      console.log("Prediccion 3", mayorIndice3);
+      document.getElementById("resultado3").innerHTML = mayorIndice3;
 
-  // Predicción para el modelo 3
-  console.time("Tiempo modelo 3");
-  var resultados3 = modelo3.predict(tensor4).dataSync();
-  console.timeEnd("Tiempo modelo 3");
-  var mayorIndice3 = resultados3.indexOf(Math.max.apply(null, resultados3));
-  prediccionesConTiempos.modelo3.tiempo = performance.now(); // Tiempo para el modelo 3
-  prediccionesConTiempos.modelo3.prediccion = mayorIndice3;
-  prediccionesConTiempos.modelo3.probabilidades = resultados3;
+      var resultados = modelo4.predict(tensor4).dataSync();
+      var mayorIndice4 = resultados.indexOf(Math.max.apply(null, resultados));
+      console.log("Prediccion 4", mayorIndice4);
+      document.getElementById("resultado4").innerHTML = mayorIndice4;
 
-  // Predicción para el modelo 4
-  console.time("Tiempo modelo 4");
-  var resultados4 = modelo4.predict(tensor4).dataSync();
-  console.timeEnd("Tiempo modelo 4");
-  var mayorIndice4 = resultados4.indexOf(Math.max.apply(null, resultados4));
-  prediccionesConTiempos.modelo4.tiempo = performance.now(); // Tiempo para el modelo 4
-  prediccionesConTiempos.modelo4.prediccion = mayorIndice4;
-  prediccionesConTiempos.modelo4.probabilidades = resultados4;
+        // Crear un objeto con los resultados
+const predicciones = [mayorIndice1, mayorIndice2, mayorIndice3, mayorIndice4];
 
-  console.timeEnd("Tiempo total");
-
-  // Crear el objeto completo para el evento con tiempos y detalles
-  const predicciones = {
-    prediccionesConTiempos: prediccionesConTiempos,
-    tensorDetails: {
-      shape: tensor4.shape,
-      dtype: tensor4.dtype
+// Disparar un evento personalizado con los resultados de las predicciones
+const evento = new CustomEvent('actualizarPredicciones', {
+  detail: predicciones  // Los detalles del evento contienen las predicciones
+});
+document.dispatchEvent(evento);  // Disparamos el evento para que 'consola.js' lo escuche
     }
-  };
-
-  // Disparar un evento personalizado con los resultados
-  const evento = new CustomEvent('actualizarPredicciones', {
-    detail: predicciones  // Los detalles del evento contienen las predicciones, tiempos y detalles del tensor
-  });
-  document.dispatchEvent(evento);
-}
 
     function resample_single(canvas, width, height, resize_canvas) {
       // Redimensiona la imagen de `canvas` a un nuevo tamaño en `resize_canvas` utilizando el filtro de Hermite
