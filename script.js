@@ -59,6 +59,15 @@
       var mayorIndice = resultados.indexOf(Math.max.apply(null, resultados));
       console.log("Prediccion 4", mayorIndice);
       document.getElementById("resultado4").innerHTML = mayorIndice;
+
+        // Crear un objeto con los resultados
+const predicciones = [mayorIndice1, mayorIndice2, mayorIndice3, mayorIndice4];
+
+// Disparar un evento personalizado con los resultados de las predicciones
+const evento = new CustomEvent('actualizarPredicciones', {
+  detail: predicciones  // Los detalles del evento contienen las predicciones
+});
+document.dispatchEvent(evento);  // Disparamos el evento para que 'consola.js' lo escuche
     }
 
     function resample_single(canvas, width, height, resize_canvas) {
