@@ -37,7 +37,7 @@ async function generarHash(contraseña) {
 
 // Función para mostrar el contenido basado en el rol
 function mostrarContenido(rol) {
-  // Oculta todos los contenidos de roles
+  // Ocultar todo el contenido de roles
   adminContent.classList.add("oculto");
   empleadoContent.classList.add("oculto");
   clienteContent.classList.add("oculto");
@@ -55,11 +55,11 @@ function mostrarContenido(rol) {
       break;
   }
 
-  // El contenido común siempre debe ser visible, pero solo en el primer contenedor
-  const primerContenedor = document.querySelector('.contenido-roles');
-  if (primerContenedor) {
-    primerContenedor.classList.remove("oculto");
-  }
+  // Eliminar la clase 'oculto' de todos los elementos con la clase 'contenido-roles'
+  const contenidosRoles = document.querySelectorAll('.contenido-roles');
+  contenidosRoles.forEach(function(contenido) {
+    contenido.classList.remove("oculto");
+  });
 }
 
 // Función para manejar el evento de inicio de sesión
