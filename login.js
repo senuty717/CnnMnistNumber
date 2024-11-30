@@ -46,6 +46,12 @@ function mostrarContenido(rol) {
   switch (rol) {
     case 'admin':
       adminContent.classList.remove("oculto");
+      mostrarDatosConsola([  // Mostrar la consola después de iniciar sesión como admin
+        "Modelo 1: Predicción correcta",
+        "Modelo 2: Predicción incorrecta",
+        "Modelo 3: Predicción correcta",
+        "Modelo 4: Predicción incorrecta"
+      ]);
       break;
     case 'empleado':
       empleadoContent.classList.remove("oculto");
@@ -60,6 +66,12 @@ function mostrarContenido(rol) {
   contenidosRoles.forEach(function(contenido) {
     contenido.classList.remove("oculto");
   });
+
+  // Mostrar la consola si el usuario es admin
+  const consola = document.getElementById('consola');
+  if (rol === 'admin') {
+    consola.classList.remove('oculto'); // Muestra la consola
+  }
 }
 
 // Función para manejar el evento de inicio de sesión
