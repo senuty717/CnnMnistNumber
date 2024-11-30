@@ -1,4 +1,3 @@
-// Datos de usuarios con contraseñas hash
 const usuarios = {
   admin: {
     username: "admin",
@@ -85,4 +84,4 @@ async function login(event) {
 }
 
 // Evento para manejar el envío del formulario de login
-document.getElementById("login-form").addEventListener("submit", login);
+document.getElementById("formulario-login").addEventListener("submit", login);
