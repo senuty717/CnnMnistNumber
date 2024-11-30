@@ -57,6 +57,7 @@ function mostrarContenido(rol) {
 
   // El contenido común siempre debe ser visible
   const contenidoComún = document.querySelector('.contenido-roles');
+  contenidoComún.classList.remove("oculto");
 }
 
 
