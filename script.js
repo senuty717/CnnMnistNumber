@@ -19,6 +19,7 @@
 function predecir() {
   // Redimensiona el dibujo a 28x28 píxeles en el minicanvas
   resample_single(canvas, 28, 28, minicanvas);
+
   // Toma los datos de imagen del minicanvas
   var imgData = ctx2.getImageData(0, 0, 28, 28);
   var arr = []; // Arreglo final que contendrá la imagen en formato adecuado
@@ -35,10 +36,9 @@ function predecir() {
   }
 
   arr = [arr]; // Organiza el arreglo en la forma requerida para Tensor4D (1,28,28,1)
-
   var tensor4 = tf.tensor4d(arr); // Crea el tensor necesario para el modelo
 
-  // Predicción de cada modelo y muestra de resultados en la tabla
+  // **Predicción de cada modelo**
   var inicio1 = performance.now();
   var resultados = modelo.predict(tensor4).dataSync();
   var mayorIndice1 = resultados.indexOf(Math.max.apply(null, resultados));
@@ -71,19 +71,48 @@ function predecir() {
   console.log("Predicción 4", mayorIndice4, "Tiempo:", tiempo4.toFixed(2) + " ms");
   document.getElementById("resultado4").innerHTML = mayorIndice4;
 
-  // Crear un objeto con los resultados
-const predicciones = [
-  { indice: mayorIndice1, tiempo: tiempo1, modelo: 1 },
-  { indice: mayorIndice2, tiempo: tiempo2, modelo: 2 },
-  { indice: mayorIndice3, tiempo: tiempo3, modelo: 3 },
-  { indice: mayorIndice4, tiempo: tiempo4, modelo: 4 }
-];
+  // **Cálculo de tiempos promedio y modelos más rápido/lento**
+  const tiempos = [tiempo1, tiempo2, tiempo3, tiempo4];
+  const tiempoPromedio = (tiempos.reduce((a, b) => a + b, 0) / tiempos.length).toFixed(2);
+  const modeloMasRapido = tiempos.indexOf(Math.min(...tiempos)) + 1;
+  const modeloMasLento = tiempos.indexOf(Math.max(...tiempos)) + 1;
 
-// Disparar un evento personalizado con los resultados de las predicciones
-const evento = new CustomEvent('actualizarPredicciones', {
-  detail: predicciones  // Los detalles del evento contienen las predicciones
-});
-document.dispatchEvent(evento);  // Disparamos el evento para que 'consola.js' lo escuche
+  // Mostrar información adicional en la consola
+  console.log(`Tiempo promedio: ${tiempoPromedio} ms`);
+  console.log(`Modelo más rápido: Modelo ${modeloMasRapido}`);
+  console.log(`Modelo más lento: Modelo ${modeloMasLento}`);
+
+  // **Mostrar probabilidades completas**
+  function mostrarProbabilidades(resultados, modelo) {
+    const probabilidades = Array.from(resultados)
+      .map((prob, i) => ({ clase: i, prob }))
+      .sort((a, b) => b.prob - a.prob)
+      .slice(0, 3); // Top 3 clases con mayor probabilidad
+
+    console.log(
+      `Modelo ${modelo}: Top 3 probabilidades: ${probabilidades
+        .map(p => `Clase ${p.clase} (${p.prob.toFixed(2)})`)
+        .join(", ")}`
+    );
+  }
+
+  mostrarProbabilidades(resultados, 1);
+  mostrarProbabilidades(resultados2, 2);
+  mostrarProbabilidades(resultados3, 3);
+  mostrarProbabilidades(resultados4, 4);
+
+  // **Disparar evento personalizado con resultados**
+  const predicciones = [
+    { modelo: 1, indice: mayorIndice1, tiempo: tiempo1, probabilidades: Array.from(resultados) },
+    { modelo: 2, indice: mayorIndice2, tiempo: tiempo2, probabilidades: Array.from(resultados2) },
+    { modelo: 3, indice: mayorIndice3, tiempo: tiempo3, probabilidades: Array.from(resultados3) },
+    { modelo: 4, indice: mayorIndice4, tiempo: tiempo4, probabilidades: Array.from(resultados4) }
+  ];
+
+  const evento = new CustomEvent('actualizarPredicciones', {
+    detail: { predicciones, tiempoPromedio, modeloMasRapido, modeloMasLento }
+  });
+  document.dispatchEvent(evento);
 }
 
     function resample_single(canvas, width, height, resize_canvas) {
