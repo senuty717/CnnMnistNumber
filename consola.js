@@ -1,58 +1,62 @@
-function mostrarDatosConsola(datos) {
-  // Verificamos si el usuario es administrador basándonos en el rol directamente
-  const rol = localStorage.getItem("rol"); // Suponiendo que se guarda el rol en localStorage
+// Escuchar el evento personalizado "actualizarPredicciones"
+document.addEventListener('actualizarPredicciones', function (evento) {
+  const { predicciones, tiempoPromedio, modeloMasRapido, modeloMasLento } = evento.detail;
 
-  if (rol !== 'admin') {
-    console.log("Acceso restringido a la consola.");
-    return;  // Si no es admin, no mostramos la consola
-  }
+  // Obtener el contenedor de datos de la consola
+  const datosConsola = document.getElementById('datos-consola');
 
-  const contenedorDatos = document.getElementById('datos-consola');
-  
-  // Limpiamos los datos previos
-  contenedorDatos.innerHTML = '';
+  // Limpiar contenido anterior
+  datosConsola.innerHTML = '';
 
-  // Si los datos son un array de resultados, los mostramos
-  if (Array.isArray(datos)) {
-    datos.forEach(function(dato) {
-      const p = document.createElement('p');
-      
-      // Verificar que `dato` tiene tiempo y asegurarnos que sea un número
-      if (typeof dato.tiempo === 'number' && !isNaN(dato.tiempo)) {
-        // Formateamos el tiempo si es válido
-        dato.tiempo = dato.tiempo.toFixed(2) + ' ms';
-      } else {
-        dato.tiempo = 'Tiempo no disponible';
-      }
-      
-      p.textContent = `Modelo ${dato.modelo}: Predicción ${dato.indice}, Tiempo: ${dato.tiempo}`;
-      contenedorDatos.appendChild(p);
-    });
-  } else {
-    // Si es solo un mensaje, lo mostramos
-    const p = document.createElement('p');
-    p.textContent = datos;
-    contenedorDatos.appendChild(p);
-  }
-}
+  // Título de la sección de resultados
+  const titulo = document.createElement('h3');
+  titulo.textContent = 'Resultados de Predicción';
+  datosConsola.appendChild(titulo);
 
-// Función para actualizar la consola con los resultados de las predicciones
-function actualizarConsola(predicciones) {
-  // Crear un array con los resultados de las predicciones para cada modelo
-  const datosConsola = predicciones.map((pred) => {
-    return {
-      indice: pred.indice,
-      tiempo: pred.tiempo,
-      modelo: pred.modelo  // Incluir el modelo
-    };
+  // Crear tabla para mostrar resultados
+  const tabla = document.createElement('table');
+  tabla.setAttribute('border', '1');
+  tabla.style.width = '100%';
+  tabla.style.borderCollapse = 'collapse';
+
+  // Crear encabezados de la tabla
+  const encabezado = document.createElement('tr');
+  encabezado.innerHTML = `
+    <th>Modelo</th>
+    <th>Predicción</th>
+    <th>Tiempo (ms)</th>
+    <th>Top 3 Clases (Probabilidad)</th>
+  `;
+  tabla.appendChild(encabezado);
+
+  // Agregar filas con los resultados de cada modelo
+  predicciones.forEach(prediccion => {
+    const fila = document.createElement('tr');
+    const top3Clases = prediccion.probabilidades
+      .map((prob, i) => ({ clase: i, prob }))
+      .sort((a, b) => b.prob - a.prob)
+      .slice(0, 3)
+      .map(p => `Clase ${p.clase} (${p.prob.toFixed(2)})`)
+      .join(', ');
+
+    fila.innerHTML = `
+      <td>Modelo ${prediccion.modelo}</td>
+      <td>${prediccion.indice}</td>
+      <td>${prediccion.tiempo.toFixed(2)}</td>
+      <td>${top3Clases}</td>
+    `;
+    tabla.appendChild(fila);
   });
 
-  // Llamar a la función que muestra los datos en consola
-  mostrarDatosConsola(datosConsola);
-}
+  // Agregar tabla al contenedor
+  datosConsola.appendChild(tabla);
 
-// Escuchar el evento personalizado 'actualizarPredicciones'
-document.addEventListener('actualizarPredicciones', function(event) {
-  const predicciones = event.detail;  // Datos de las predicciones pasados en el evento
-  actualizarConsola(predicciones);
+  // Mostrar información adicional (tiempo promedio, modelos más rápido y lento)
+  const infoExtra = document.createElement('div');
+  infoExtra.innerHTML = `
+    <p><strong>Tiempo promedio:</strong> ${tiempoPromedio} ms</p>
+    <p><strong>Modelo más rápido:</strong> Modelo ${modeloMasRapido}</p>
+    <p><strong>Modelo más lento:</strong> Modelo ${modeloMasLento}</p>
+  `;
+  datosConsola.appendChild(infoExtra);
 });
