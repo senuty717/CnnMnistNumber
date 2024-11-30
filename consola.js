@@ -1,12 +1,19 @@
 // consola.js
 
-// Función para mostrar los datos en la consola
 function mostrarDatosConsola(datos) {
+  // Verificamos si el usuario es administrador
+  const esAdministrador = document.getElementById('admin-role');  // Buscamos el elemento con la clase 'admin'
+  
+  if (!esAdministrador) {
+    console.log("Acceso restringido a la consola.");
+    return;  // Si no es administrador, no mostramos los datos
+  }
+
   const contenedorDatos = document.getElementById('datos-consola');
   
   // Limpiamos los datos previos
   contenedorDatos.innerHTML = '';
-  
+
   // Si los datos son un array de resultados
   if (Array.isArray(datos)) {
     datos.forEach(function(dato) {
@@ -22,7 +29,7 @@ function mostrarDatosConsola(datos) {
   }
 }
 
-// Llamada a esta función con datos de ejemplo
+// Ejemplo de llamada a la función
 mostrarDatosConsola([
   "Modelo 1: Predicción correcta",
   "Modelo 2: Predicción incorrecta",
