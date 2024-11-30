@@ -101,22 +101,100 @@ th {
   display: none;
 }
 
-/* Mostrar el formulario de login en la pantalla */
-#login-form {
-  display: block;
+/* Estilo para los inputs y botón dentro del formulario de login */
+#login-form input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-/* Ocultar contenedores de contenido al principio */
-#contenedor-admin,
-#contenedor-empleado,
-#contenedor-cliente {
-  display: none;
+#login-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
+#login-form button:hover {
+  background-color: #45a049;
+}
 
-#error-message {
-  color: red;
-  font-weight: bold;
-  margin-top: 10px;
+/* Estilos para la sección de contenido */
+#admin-content,
+#empleado-content,
+#cliente-content {
+  padding: 20px;
   text-align: center;
+  margin-top: 20px;
+}
+
+#admin-content {
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+#empleado-content {
+  background-color: #e0f7fa;
+  border: 1px solid #00bcd4;
+  border-radius: 8px;
+}
+
+#cliente-content {
+  background-color: #f9fbe7;
+  border: 1px solid #cddc39;
+  border-radius: 8px;
+}
+
+/* Estilo para el logo y la descripción */
+.main {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.main img {
+  margin-bottom: 20px;
+}
+
+/* Estilo para los botones dentro de un contenedor */
+.button-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.button-container .btn {
+  padding: 10px 20px;
+  margin: 5px;
+  background-color: #008CBA;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button-container .btn:hover {
+  background-color: #007B9E;
+}
+
+/* Estilo para la tabla de resultados */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table th,
+table td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+table th {
+  background-color: #f2f2f2;
 }
