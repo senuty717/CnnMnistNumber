@@ -95,3 +95,7 @@ th {
     padding: 10px; /* Espacio interno para el encabezado */
     text-align: center; /* Centrar el texto en el encabezado */
 }
+
+.oculto {
+  display: none; /* Elementos ocultos */
+}
