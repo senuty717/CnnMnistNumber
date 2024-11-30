@@ -20,7 +20,7 @@ const usuarios = {
   },
   cliente: {
     username: "cliente",
-    passwordHash: "e3afed0047b08059d0fada10f400c1e5e1ed8304ecf9a047850052db65b6c299" // hash de cliente123 (SHA-256)
+    passwordHash: "09a31a7001e261ab1e056182a71d3cf57f582ca9a29cff5eb83be0f0549730a9" // hash de cliente123 (SHA-256)
   }
 };
 
