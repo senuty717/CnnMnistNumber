@@ -20,6 +20,7 @@ async function generarHash(contraseña) {
   const hashBuffer = await crypto.subtle.digest('SHA-256', data); // Genera el hash
   const hashArray = Array.from(new Uint8Array(hashBuffer)); // Convierte el buffer en array de bytes
   const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join(''); // Convierte en cadena hexadecimal
+  console.log('Hash generado: ', hashHex);  // Imprime el hash generado
   return hashHex;
 }
 
@@ -58,6 +59,10 @@ async function login(event) {
       const hashIngresado = await generarHash(password);
       console.log('Hash ingresado: ', hashIngresado); // Imprime el hash generado
       console.log('Hash almacenado para ' + username + ': ', user.passwordHash); // Imprime el hash almacenado
+
+      // Verifica la longitud de los hashes
+      console.log('Longitud del hash ingresado: ', hashIngresado.length);
+      console.log('Longitud del hash almacenado: ', user.passwordHash.length);
 
       // Compara el hash generado con el hash almacenado
       if (hashIngresado === user.passwordHash) {
