@@ -61,6 +61,7 @@ async function login(event) {
 
       // Compara el hash generado con el hash almacenado
       if (hashIngresado === user.passwordHash) {
+        console.log('Contraseña correcta. Acceso permitido.');
         rol = key; // Asigna el rol correspondiente
         break; // Detiene el bucle porque las credenciales son válidas
       } else {
