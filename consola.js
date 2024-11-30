@@ -25,7 +25,7 @@ function mostrarDatosConsola(datos) {
         dato.tiempo = 'Tiempo no disponible';
       }
       
-      p.textContent = `Modelo ${dato.indice + 1}: Predicción ${dato.indice}, Tiempo: ${dato.tiempo}`;
+      p.textContent = `Modelo ${dato.modelo}: Predicción ${dato.indice}, Tiempo: ${dato.tiempo}`;
       contenedorDatos.appendChild(p);
     });
   } else {
@@ -39,10 +39,11 @@ function mostrarDatosConsola(datos) {
 // Función para actualizar la consola con los resultados de las predicciones
 function actualizarConsola(predicciones) {
   // Crear un array con los resultados de las predicciones para cada modelo
-  const datosConsola = predicciones.map((pred, index) => {
+  const datosConsola = predicciones.map((pred) => {
     return {
       indice: pred.indice,
-      tiempo: pred.tiempo
+      tiempo: pred.tiempo,
+      modelo: pred.modelo  // Incluir el modelo
     };
   });
 
