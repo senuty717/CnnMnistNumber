@@ -57,6 +57,7 @@ async function login(event) {
       // Genera el hash de la contraseña ingresada
       const hashIngresado = await generarHash(password);
       console.log('Hash ingresado: ', hashIngresado); // Imprime el hash generado
+      console.log('Hash almacenado para ' + username + ': ', user.passwordHash); // Imprime el hash almacenado
 
       // Compara el hash generado con el hash almacenado
       if (hashIngresado === user.passwordHash) {
