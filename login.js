@@ -53,6 +53,9 @@ function mostrarContenido(rol) {
       clienteContent.classList.remove("oculto");
       break;
   }
+
+  // El contenido común se vea
+  document.querySelector('.contenido-roles').classList.remove("oculto");
 }
 
 // Función para manejar el evento de inicio de sesión
