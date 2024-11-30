@@ -37,11 +37,12 @@ async function generarHash(contraseña) {
 
 // Función para mostrar el contenido basado en el rol
 function mostrarContenido(rol) {
-  // Oculta todo el contenido antes de mostrar el contenido correcto
+  // Primero oculta todo el contenido
   adminContent.classList.add("oculto");
   empleadoContent.classList.add("oculto");
   clienteContent.classList.add("oculto");
 
+  // Luego muestra el contenido correspondiente al rol
   switch (rol) {
     case 'admin':
       adminContent.classList.remove("oculto");
@@ -54,9 +55,11 @@ function mostrarContenido(rol) {
       break;
   }
 
-  // El contenido común se vea
-  document.querySelector('.contenido-roles').classList.remove("oculto");
+  // El contenido común siempre debe ser visible
+  const contenidoComún = document.querySelector('.contenido-roles');
+  contenidoComún.classList.remove("oculto");
 }
+
 
 // Función para manejar el evento de inicio de sesión
 form.addEventListener("submit", async function(event) {
