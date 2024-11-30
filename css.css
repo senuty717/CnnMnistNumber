@@ -138,18 +138,21 @@ th {
   background-color: #f1f1f1;
   border: 1px solid #ccc;
   border-radius: 8px;
+  color: black;
 }
 
 #empleado-content {
   background-color: #e0f7fa;
   border: 1px solid #00bcd4;
   border-radius: 8px;
+  color: black;
 }
 
 #cliente-content {
   background-color: #f9fbe7;
   border: 1px solid #cddc39;
   border-radius: 8px;
+  color: black;
 }
 
 /* Estilo para el logo y la descripción */
