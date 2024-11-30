@@ -1,12 +1,12 @@
 // consola.js
 
 function mostrarDatosConsola(datos) {
-  // Verificamos si el usuario es administrador
-  const esAdministrador = document.getElementById('admin-role');  // Buscamos el elemento con la clase 'admin'
-  
-  if (!esAdministrador) {
+  // Verificamos si el usuario es administrador basándonos en el rol directamente
+  const rol = localStorage.getItem("rol"); // Suponiendo que se guarda el rol en localStorage
+
+  if (rol !== 'admin') {
     console.log("Acceso restringido a la consola.");
-    return;  // Si no es administrador, no mostramos los datos
+    return;  // Si no es admin, no mostramos la consola
   }
 
   const contenedorDatos = document.getElementById('datos-consola');
