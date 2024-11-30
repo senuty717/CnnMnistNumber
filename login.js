@@ -1,3 +1,14 @@
+// Definir los elementos de contenido para mostrar según el rol del usuario
+const adminContent = document.getElementById("admin-content");
+const empleadoContent = document.getElementById("empleado-content");
+const clienteContent = document.getElementById("cliente-content");
+
+// Selección de elementos del formulario
+const form = document.getElementById("formulario-login");
+const errorMessage = document.getElementById("error-message");
+const loginForm = document.getElementById("login-form");
+
+// Variables para simular una base de datos de usuarios (puedes cambiar esto según tus necesidades)
 const usuarios = {
   admin: {
     username: "admin",
@@ -26,29 +37,30 @@ async function generarHash(contraseña) {
 
 // Función para mostrar el contenido basado en el rol
 function mostrarContenido(rol) {
+  // Oculta todo el contenido antes de mostrar el contenido correcto
+  adminContent.classList.add("oculto");
+  empleadoContent.classList.add("oculto");
+  clienteContent.classList.add("oculto");
+
   switch (rol) {
     case 'admin':
-      document.getElementById("admin-content").classList.remove("oculto");
+      adminContent.classList.remove("oculto");
       break;
     case 'empleado':
-      document.getElementById("empleado-content").classList.remove("oculto");
+      empleadoContent.classList.remove("oculto");
       break;
     case 'cliente':
-      document.getElementById("cliente-content").classList.remove("oculto");
+      clienteContent.classList.remove("oculto");
       break;
   }
 }
 
 // Función para manejar el evento de inicio de sesión
-async function login(event) {
-  event.preventDefault(); // Evitar el comportamiento predeterminado del formulario
+form.addEventListener("submit", async function(event) {
+  event.preventDefault(); // Prevenir el envío del formulario
 
-  // Obtiene los valores ingresados por el usuario
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
-
-  console.log('Usuario ingresado: ', username);  // Imprime el nombre de usuario
-  console.log('Contraseña ingresada: ', password);  // Imprime la contraseña ingresada
 
   let rol = null; // Variable para almacenar el rol del usuario si las credenciales son correctas
 
@@ -60,11 +72,7 @@ async function login(event) {
       console.log('Hash ingresado: ', hashIngresado); // Imprime el hash generado
       console.log('Hash almacenado para ' + username + ': ', user.passwordHash); // Imprime el hash almacenado
 
-      // Verifica la longitud de los hashes
-      console.log('Longitud del hash ingresado: ', hashIngresado.length);
-      console.log('Longitud del hash almacenado: ', user.passwordHash.length);
-
-      // Compara el hash generado con el hash almacenado
+      // Verifica si los hashes coinciden
       if (hashIngresado === user.passwordHash) {
         console.log('Contraseña correcta. Acceso permitido.');
         rol = key; // Asigna el rol correspondiente
@@ -78,17 +86,16 @@ async function login(event) {
   // Muestra el contenido según el rol o un mensaje de error
   if (rol) {
     // Oculta el formulario de inicio de sesión
-    document.getElementById("login-form").classList.add("oculto");
+    loginForm.classList.add("oculto");
 
     // Muestra el contenido correspondiente al rol del usuario
     mostrarContenido(rol);
+
+    // Mostrar mensaje de bienvenida (opcional)
+    alert(`Bienvenido, ${username}!`);
   } else {
     // Muestra un mensaje de error si las credenciales son incorrectas
-    const errorMessage = document.getElementById("error-message");
     errorMessage.classList.remove("oculto");
-    errorMessage.textContent = "Usuario o contraseña incorrectos.";
+    errorMessage.innerHTML = "Usuario o contraseña incorrectos.";
   }
-}
-
-// Evento para manejar el envío del formulario de login
-document.getElementById("formulario-login").addEventListener("submit", login);
+});
