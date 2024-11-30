@@ -16,58 +16,75 @@
       drawingcanvas.clear();
     }
 
-    function predecir() {
-      // Redimensiona el dibujo a 28x28 píxeles en el minicanvas
-      resample_single(canvas, 28, 28, minicanvas);
-      // Toma los datos de imagen del minicanvas
-      var imgData = ctx2.getImageData(0, 0, 28, 28);
-      var arr = []; // Arreglo final que contendrá la imagen en formato adecuado
-      var arr28 = []; // Subarreglo de 28 píxeles que se agregará a `arr`
+function predecir() {
+  // Redimensiona el dibujo a 28x28 píxeles en el minicanvas
+  resample_single(canvas, 28, 28, minicanvas);
+  // Toma los datos de imagen del minicanvas
+  var imgData = ctx2.getImageData(0, 0, 28, 28);
+  var arr = []; // Arreglo final que contendrá la imagen en formato adecuado
+  var arr28 = []; // Subarreglo de 28 píxeles que se agregará a `arr`
 
-      // Convierte los datos de la imagen en un arreglo de blanco y negro
-      for (var p = 0, i = 0; p < imgData.data.length; p += 4) {
-        var valor = imgData.data[p + 3] / 255; // Normaliza valor alfa de 0 a 1
-        arr28.push([valor]); // Agrega al subarreglo
-        if (arr28.length == 28) {
-          arr.push(arr28);
-          arr28 = [];
-        }
-      }
-
-      arr = [arr]; // Organiza el arreglo en la forma requerida para Tensor4D (1,28,28,1)
-
-      var tensor4 = tf.tensor4d(arr); // Crea el tensor necesario para el modelo
-
-      // Predicción de cada modelo y muestra de resultados en la tabla
-      var resultados = modelo.predict(tensor4).dataSync();
-      var mayorIndice1 = resultados.indexOf(Math.max.apply(null, resultados));
-      console.log("Prediccion 1", mayorIndice1);
-      document.getElementById("resultado").innerHTML = mayorIndice1;
-
-      var resultados = modelo2.predict(tensor4).dataSync();
-      var mayorIndice2 = resultados.indexOf(Math.max.apply(null, resultados));
-      console.log("Prediccion 2", mayorIndice2);
-      document.getElementById("resultado2").innerHTML = mayorIndice2;
-
-      var resultados = modelo3.predict(tensor4).dataSync();
-      var mayorIndice3 = resultados.indexOf(Math.max.apply(null, resultados));
-      console.log("Prediccion 3", mayorIndice3);
-      document.getElementById("resultado3").innerHTML = mayorIndice3;
-
-      var resultados = modelo4.predict(tensor4).dataSync();
-      var mayorIndice4 = resultados.indexOf(Math.max.apply(null, resultados));
-      console.log("Prediccion 4", mayorIndice4);
-      document.getElementById("resultado4").innerHTML = mayorIndice4;
-
-        // Crear un objeto con los resultados
-const predicciones = [mayorIndice1, mayorIndice2, mayorIndice3, mayorIndice4];
-
-// Disparar un evento personalizado con los resultados de las predicciones
-const evento = new CustomEvent('actualizarPredicciones', {
-  detail: predicciones  // Los detalles del evento contienen las predicciones
-});
-document.dispatchEvent(evento);  // Disparamos el evento para que 'consola.js' lo escuche
+  // Convierte los datos de la imagen en un arreglo de blanco y negro
+  for (var p = 0, i = 0; p < imgData.data.length; p += 4) {
+    var valor = imgData.data[p + 3] / 255; // Normaliza valor alfa de 0 a 1
+    arr28.push([valor]); // Agrega al subarreglo
+    if (arr28.length == 28) {
+      arr.push(arr28);
+      arr28 = [];
     }
+  }
+
+  arr = [arr]; // Organiza el arreglo en la forma requerida para Tensor4D (1,28,28,1)
+
+  var tensor4 = tf.tensor4d(arr); // Crea el tensor necesario para el modelo
+
+  // Predicción de cada modelo y muestra de resultados en la tabla
+  var inicio1 = performance.now();
+  var resultados = modelo.predict(tensor4).dataSync();
+  var mayorIndice1 = resultados.indexOf(Math.max.apply(null, resultados));
+  var fin1 = performance.now();
+  var tiempo1 = fin1 - inicio1;
+  console.log("Predicción 1", mayorIndice1, "Tiempo:", tiempo1.toFixed(2) + " ms");
+  document.getElementById("resultado").innerHTML = mayorIndice1;
+
+  var inicio2 = performance.now();
+  var resultados2 = modelo2.predict(tensor4).dataSync();
+  var mayorIndice2 = resultados2.indexOf(Math.max.apply(null, resultados2));
+  var fin2 = performance.now();
+  var tiempo2 = fin2 - inicio2;
+  console.log("Predicción 2", mayorIndice2, "Tiempo:", tiempo2.toFixed(2) + " ms");
+  document.getElementById("resultado2").innerHTML = mayorIndice2;
+
+  var inicio3 = performance.now();
+  var resultados3 = modelo3.predict(tensor4).dataSync();
+  var mayorIndice3 = resultados3.indexOf(Math.max.apply(null, resultados3));
+  var fin3 = performance.now();
+  var tiempo3 = fin3 - inicio3;
+  console.log("Predicción 3", mayorIndice3, "Tiempo:", tiempo3.toFixed(2) + " ms");
+  document.getElementById("resultado3").innerHTML = mayorIndice3;
+
+  var inicio4 = performance.now();
+  var resultados4 = modelo4.predict(tensor4).dataSync();
+  var mayorIndice4 = resultados4.indexOf(Math.max.apply(null, resultados4));
+  var fin4 = performance.now();
+  var tiempo4 = fin4 - inicio4;
+  console.log("Predicción 4", mayorIndice4, "Tiempo:", tiempo4.toFixed(2) + " ms");
+  document.getElementById("resultado4").innerHTML = mayorIndice4;
+
+  // Crear un objeto con los resultados
+  const predicciones = [
+    { indice: mayorIndice1, tiempo: tiempo1 },
+    { indice: mayorIndice2, tiempo: tiempo2 },
+    { indice: mayorIndice3, tiempo: tiempo3 },
+    { indice: mayorIndice4, tiempo: tiempo4 }
+  ];
+
+  // Disparar un evento personalizado con los resultados de las predicciones
+  const evento = new CustomEvent('actualizarPredicciones', {
+    detail: predicciones  // Los detalles del evento contienen las predicciones
+  });
+  document.dispatchEvent(evento);  // Disparamos el evento para que 'consola.js' lo escuche
+}
 
     function resample_single(canvas, width, height, resize_canvas) {
       // Redimensiona la imagen de `canvas` a un nuevo tamaño en `resize_canvas` utilizando el filtro de Hermite
