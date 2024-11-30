@@ -1,3 +1,5 @@
+// consola.js
+
 // Esta función se encargará de mostrar los datos en la consola solo si el usuario es administrador
 function mostrarDatosConsola(datos) {
   // Verificamos si el usuario es administrador basándonos en el rol directamente
@@ -30,27 +32,14 @@ function mostrarDatosConsola(datos) {
 
 // Función para actualizar la consola con los resultados de las predicciones
 function actualizarConsola(predicciones) {
-  const prediccionesConTiempos = predicciones.prediccionesConTiempos;
-  const tensorDetails = predicciones.tensorDetails;
-  
   // Crear un array con los resultados de las predicciones para cada modelo
-  const datosConsola = [];
-
-  // Información de cada modelo
-  for (let i = 1; i <= 4; i++) {
-    const modelo = prediccionesConTiempos[`modelo${i}`];
-    datosConsola.push(`Modelo ${i}:`);
-    datosConsola.push(`  Clase ganadora: ${modelo.prediccion}`);
-    datosConsola.push(`  Probabilidades: ${modelo.probabilidades}`);
-    datosConsola.push(`  Imagen de entrada: ${JSON.stringify(modelo.imagen)}`);
-    datosConsola.push(`  Tiempo de predicción: ${modelo.tiempo} ms`);
-  }
-
-  // Mostrar los detalles del tensor
-  datosConsola.push("Detalles del tensor:");
-  datosConsola.push(`  Forma del tensor: ${tensorDetails.shape}`);
-  datosConsola.push(`  Tipo del tensor: ${tensorDetails.dtype}`);
-
+  const datosConsola = [
+    `Modelo 1: Predicción ${predicciones[0]}`,
+    `Modelo 2: Predicción ${predicciones[1]}`,
+    `Modelo 3: Predicción ${predicciones[2]}`,
+    `Modelo 4: Predicción ${predicciones[3]}`
+  ];
+  
   // Llamar a la función que muestra los datos en consola
   mostrarDatosConsola(datosConsola);
 }
