@@ -40,24 +40,23 @@
 
       // Predicción de cada modelo y muestra de resultados en la tabla
       var resultados = modelo.predict(tensor4).dataSync();
-
-      var mayorIndice = resultados.indexOf(Math.max.apply(null, resultados));
-      console.log("Prediccion 1", mayorIndice);
+      var mayorIndice1 = resultados.indexOf(Math.max.apply(null, resultados));
+      console.log("Prediccion 1", mayorIndice1);
       document.getElementById("resultado").innerHTML = mayorIndice;
 
       var resultados = modelo2.predict(tensor4).dataSync();
-      var mayorIndice = resultados.indexOf(Math.max.apply(null, resultados));
-      console.log("Prediccion 2", mayorIndice);
+      var mayorIndice2 = resultados.indexOf(Math.max.apply(null, resultados));
+      console.log("Prediccion 2", mayorIndice2);
       document.getElementById("resultado2").innerHTML = mayorIndice;
 
       var resultados = modelo3.predict(tensor4).dataSync();
-      var mayorIndice = resultados.indexOf(Math.max.apply(null, resultados));
-      console.log("Prediccion 3", mayorIndice);
+      var mayorIndice3 = resultados.indexOf(Math.max.apply(null, resultados));
+      console.log("Prediccion 3", mayorIndice3);
       document.getElementById("resultado3").innerHTML = mayorIndice;
 
       var resultados = modelo4.predict(tensor4).dataSync();
-      var mayorIndice = resultados.indexOf(Math.max.apply(null, resultados));
-      console.log("Prediccion 4", mayorIndice);
+      var mayorIndice4 = resultados.indexOf(Math.max.apply(null, resultados));
+      console.log("Prediccion 4", mayorIndice4);
       document.getElementById("resultado4").innerHTML = mayorIndice;
 
         // Crear un objeto con los resultados
