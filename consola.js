@@ -1,62 +1,25 @@
-// Escuchar el evento personalizado "actualizarPredicciones"
-document.addEventListener('actualizarPredicciones', function (evento) {
-  const { predicciones, tiempoPromedio, modeloMasRapido, modeloMasLento } = evento.detail;
+// Consola para manejar las predicciones de cada modelo
 
-  // Obtener el contenedor de datos de la consola
-  const datosConsola = document.getElementById('datos-consola');
+// Para cada predicción, muestra el resultado en consola
+function mostrarDatosConsola(modelo, resultados, tiempo) {
+  // Obtener el índice del valor máximo y el top 3
+  const mayorIndice = resultados.indexOf(Math.max.apply(null, resultados));
+  const top3 = obtenerTop3(resultados);
 
-  // Limpiar contenido anterior
-  datosConsola.innerHTML = '';
+  console.log(`Predicción para el modelo ${modelo}`);
+  console.log(`Predicción más alta: Clase ${mayorIndice}`);
+  console.log("Top 3 Predicciones:", top3);
+  console.log(`Tiempo de ejecución: ${tiempo.toFixed(2)} ms`);
+  console.log("------------------------------------");
+}
 
-  // Título de la sección de resultados
-  const titulo = document.createElement('h3');
-  titulo.textContent = 'Resultados de Predicción';
-  datosConsola.appendChild(titulo);
+// Función auxiliar para obtener el top 3
+function obtenerTop3(predicciones) {
+  const prediccionesConIndices = Array.from(predicciones).map((valor, indice) => ({ indice, valor }));
+  prediccionesConIndices.sort((a, b) => b.valor - a.valor);
 
-  // Crear tabla para mostrar resultados
-  const tabla = document.createElement('table');
-  tabla.setAttribute('border', '1');
-  tabla.style.width = '100%';
-  tabla.style.borderCollapse = 'collapse';
-
-  // Crear encabezados de la tabla
-  const encabezado = document.createElement('tr');
-  encabezado.innerHTML = `
-    <th>Modelo</th>
-    <th>Predicción</th>
-    <th>Tiempo (ms)</th>
-    <th>Top 3 Clases (Probabilidad)</th>
-  `;
-  tabla.appendChild(encabezado);
-
-  // Agregar filas con los resultados de cada modelo
-  predicciones.forEach(prediccion => {
-    const fila = document.createElement('tr');
-    const top3Clases = prediccion.probabilidades
-      .map((prob, i) => ({ clase: i, prob }))
-      .sort((a, b) => b.prob - a.prob)
-      .slice(0, 3)
-      .map(p => `Clase ${p.clase} (${p.prob.toFixed(2)})`)
-      .join(', ');
-
-    fila.innerHTML = `
-      <td>Modelo ${prediccion.modelo}</td>
-      <td>${prediccion.indice}</td>
-      <td>${prediccion.tiempo.toFixed(2)}</td>
-      <td>${top3Clases}</td>
-    `;
-    tabla.appendChild(fila);
-  });
-
-  // Agregar tabla al contenedor
-  datosConsola.appendChild(tabla);
-
-  // Mostrar información adicional (tiempo promedio, modelos más rápido y lento)
-  const infoExtra = document.createElement('div');
-  infoExtra.innerHTML = `
-    <p><strong>Tiempo promedio:</strong> ${tiempoPromedio} ms</p>
-    <p><strong>Modelo más rápido:</strong> Modelo ${modeloMasRapido}</p>
-    <p><strong>Modelo más lento:</strong> Modelo ${modeloMasLento}</p>
-  `;
-  datosConsola.appendChild(infoExtra);
-});
+  return prediccionesConIndices.slice(0, 3).map(item => ({
+    clase: item.indice,
+    confianza: (item.valor * 100).toFixed(2) + "%",
+  }));
+}
