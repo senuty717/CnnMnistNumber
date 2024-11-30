@@ -96,9 +96,23 @@ th {
     text-align: center; /* Centrar el texto en el encabezado */
 }
 
+/* Ocultar elementos al principio */
 .oculto {
-  display: none; /* Elementos ocultos */
+  display: none;
 }
+
+/* Mostrar el formulario de login en la pantalla */
+#login-form {
+  display: block;
+}
+
+/* Ocultar contenedores de contenido al principio */
+#contenedor-admin,
+#contenedor-empleado,
+#contenedor-cliente {
+  display: none;
+}
+
 
 #error-message {
   color: red;
