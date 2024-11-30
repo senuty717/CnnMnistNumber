@@ -28,11 +28,3 @@ function mostrarDatosConsola(datos) {
     contenedorDatos.appendChild(p);
   }
 }
-
-// Ejemplo de llamada a la función
-mostrarDatosConsola([
-  "Modelo 1: Predicción correcta",
-  "Modelo 2: Predicción incorrecta",
-  "Modelo 3: Predicción correcta",
-  "Modelo 4: Predicción incorrecta"
-]);
