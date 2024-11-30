@@ -1,15 +1,15 @@
 const usuarios = {
   admin: {
     username: "admin",
-    passwordHash: "e99a18c428cb38d5f260853678922e03abd8335e3b6dcd1f46e912f1e2a04548" // hash de admin123
+    passwordHash: "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9" // hash de admin123 (SHA-256)
   },
   empleado: {
     username: "empleado",
-    passwordHash: "6b3a55e0261b0304143f805a249dabd243a5da508e649b3c6c3c5d05be5c31a6" // hash de empleado123
+    passwordHash: "4bbcb26a9fa1a2cfdbd3d3be38d1fc899680d60be21054b1295c2fc9d1dcb6c3" // hash de empleado123 (SHA-256)
   },
   cliente: {
     username: "cliente",
-    passwordHash: "c29a1d9a825d9a122b09a6a5699eb2a7e06a1f6a8fa940a6b091d1e37fc34376" // hash de cliente123
+    passwordHash: "e3afed0047b08059d0fada10f400c1e5e1ed8304ecf9a047850052db65b6c299" // hash de cliente123 (SHA-256)
   }
 };
 
@@ -17,9 +17,9 @@ const usuarios = {
 async function generarHash(contraseña) {
   const encoder = new TextEncoder();
   const data = encoder.encode(contraseña);
-  const hashBuffer = await crypto.subtle.digest('SHA-256', data); // generamos el hash
-  const hashArray = Array.from(new Uint8Array(hashBuffer)); // convertimos el buffer en array de bytes
-  const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join(''); // convertimos en cadena hexadecimal
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data); // Genera el hash
+  const hashArray = Array.from(new Uint8Array(hashBuffer)); // Convierte el buffer en array de bytes
+  const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join(''); // Convierte en cadena hexadecimal
   return hashHex;
 }
 
