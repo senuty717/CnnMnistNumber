@@ -19,7 +19,7 @@ function mostrarDatosConsola(datos) {
   if (Array.isArray(datos)) {
     datos.forEach(function(dato) {
       const p = document.createElement('p');
-      p.textContent = dato;
+      p.textContent = `${dato.indice} - Tiempo: ${dato.tiempo.toFixed(2)} ms`;
       contenedorDatos.appendChild(p);
     });
   } else {
@@ -33,13 +33,10 @@ function mostrarDatosConsola(datos) {
 // Función para actualizar la consola con los resultados de las predicciones
 function actualizarConsola(predicciones) {
   // Crear un array con los resultados de las predicciones para cada modelo
-  const datosConsola = [
-    `Modelo 1: Predicción ${predicciones[0]}`,
-    `Modelo 2: Predicción ${predicciones[1]}`,
-    `Modelo 3: Predicción ${predicciones[2]}`,
-    `Modelo 4: Predicción ${predicciones[3]}`
-  ];
-  
+  const datosConsola = predicciones.map((prediccion, index) => {
+    return `Modelo ${index + 1}: Predicción ${prediccion.indice} - Tiempo: ${prediccion.tiempo.toFixed(2)} ms`;
+  });
+
   // Llamar a la función que muestra los datos en consola
   mostrarDatosConsola(datosConsola);
 }
