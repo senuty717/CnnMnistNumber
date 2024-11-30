@@ -72,18 +72,18 @@ function predecir() {
   document.getElementById("resultado4").innerHTML = mayorIndice4;
 
   // Crear un objeto con los resultados
-  const predicciones = [
-    { indice: mayorIndice1, tiempo: tiempo1 },
-    { indice: mayorIndice2, tiempo: tiempo2 },
-    { indice: mayorIndice3, tiempo: tiempo3 },
-    { indice: mayorIndice4, tiempo: tiempo4 }
-  ];
+const predicciones = [
+  { indice: mayorIndice1, tiempo: tiempo1, modelo: 1 },
+  { indice: mayorIndice2, tiempo: tiempo2, modelo: 2 },
+  { indice: mayorIndice3, tiempo: tiempo3, modelo: 3 },
+  { indice: mayorIndice4, tiempo: tiempo4, modelo: 4 }
+];
 
-  // Disparar un evento personalizado con los resultados de las predicciones
-  const evento = new CustomEvent('actualizarPredicciones', {
-    detail: predicciones  // Los detalles del evento contienen las predicciones
-  });
-  document.dispatchEvent(evento);  // Disparamos el evento para que 'consola.js' lo escuche
+// Disparar un evento personalizado con los resultados de las predicciones
+const evento = new CustomEvent('actualizarPredicciones', {
+  detail: predicciones  // Los detalles del evento contienen las predicciones
+});
+document.dispatchEvent(evento);  // Disparamos el evento para que 'consola.js' lo escuche
 }
 
     function resample_single(canvas, width, height, resize_canvas) {
