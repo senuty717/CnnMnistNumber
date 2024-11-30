@@ -131,28 +131,27 @@ th {
   padding: 20px;
   text-align: center;
   margin-top: 20px;
-  color: black;
 }
 
 #admin-content {
-  background-color: #f1f1f1;
-  border: 1px solid #ccc;
+  background-color: #333; /* Fondo oscuro */
+  border: 1px solid #555; /* Bordes más oscuros */
   border-radius: 8px;
-  color: black;
+  color: #fff; /* Color de texto blanco para mayor contraste */
 }
 
 #empleado-content {
-  background-color: #e0f7fa;
-  border: 1px solid #00bcd4;
+  background-color: #00796b; /* Un verde oscuro */
+  border: 1px solid #004d40; /* Bordes en tono más oscuro */
   border-radius: 8px;
-  color: black;
+  color: #fff; /* Color de texto blanco para mayor contraste */
 }
 
 #cliente-content {
-  background-color: #f9fbe7;
-  border: 1px solid #cddc39;
+  background-color: #212121; /* Fondo oscuro */
+  border: 1px solid #757575; /* Bordes en un tono gris oscuro */
   border-radius: 8px;
-  color: black;
+  color: #fff; /* Color de texto blanco para mayor contraste */
 }
 
 /* Estilo para el logo y la descripción */
