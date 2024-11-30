@@ -80,19 +80,6 @@ function mostrarContenido(rol) {
   }
 }
 
-  // Eliminar la clase 'oculto' de todos los elementos con la clase 'contenido-roles'
-  const contenidosRoles = document.querySelectorAll('.contenido-roles');
-  contenidosRoles.forEach(function(contenido) {
-    contenido.classList.remove("oculto");
-  });
-
-  // Mostrar la consola si el usuario es admin
-  const consola = document.getElementById('consola');
-  if (rol === 'admin') {
-    consola.classList.remove('oculto'); // Muestra la consola
-  }
-}
-
 // Función para manejar el evento de inicio de sesión
 form.addEventListener("submit", async function(event) {
   event.preventDefault(); // Prevenir el envío del formulario
