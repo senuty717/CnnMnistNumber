@@ -42,30 +42,27 @@ function mostrarContenido(rol) {
   empleadoContent.classList.add("oculto");
   clienteContent.classList.add("oculto");
 
-  // Muestra el contenido correspondiente al rol
   switch (rol) {
     case 'admin':
       adminContent.classList.remove("oculto");
-      // Guardar el rol en localStorage
-      localStorage.setItem("rol", "admin");
-      mostrarDatosConsola([  // Mostrar la consola después de iniciar sesión como admin
-        "Modelo 1: Predicción correcta",
-        "Modelo 2: Predicción incorrecta",
-        "Modelo 3: Predicción correcta",
-        "Modelo 4: Predicción incorrecta"
-      ]);
+      // Mostrar consola o cualquier otro contenido específico para admins
       break;
     case 'empleado':
       empleadoContent.classList.remove("oculto");
-      // Guardar el rol en localStorage
-      localStorage.setItem("rol", "empleado");
+      // Mostrar gestión de empleados solo a empleados
+      document.getElementById("empleado-gestion").classList.remove("oculto");
       break;
     case 'cliente':
       clienteContent.classList.remove("oculto");
-      // Guardar el rol en localStorage
-      localStorage.setItem("rol", "cliente");
       break;
   }
+
+  // Mostrar la consola si el usuario es admin
+  const consola = document.getElementById('consola');
+  if (rol === 'admin') {
+    consola.classList.remove('oculto'); // Muestra la consola
+  }
+}
 
   // Eliminar la clase 'oculto' de todos los elementos con la clase 'contenido-roles'
   const contenidosRoles = document.querySelectorAll('.contenido-roles');
