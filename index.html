@@ -43,16 +43,41 @@
 </div>
   </div>
 
-<div id="empleado-content" class="oculto">
-      <h2>Bienvenido Empleado</h2>
-      <div id="panel-empleado">
-        <p>Accede a tus herramientas de trabajo:</p>
-        <ul>
-          <li><a href="#informes">Ver informes</a></li>
-          <li><a href="#configuracion">Configuración</a></li>
-        </ul>
-      </div>
-    </div>
+<div id="empleado-gestion" class="oculto">
+  <h3>Gestión de Empleados</h3>
+  <form id="formulario-empleado">
+    <label for="empleado-id">ID Empleado:</label>
+    <input type="text" id="empleado-id" placeholder="ID del empleado" required />
+
+    <label for="empleado-nombre">Nombre:</label>
+    <input type="text" id="empleado-nombre" placeholder="Nombre del empleado" required />
+
+    <label for="empleado-rol">Rol:</label>
+    <input type="text" id="empleado-rol" placeholder="Rol del empleado" required />
+
+    <button type="submit">Agregar/Modificar Empleado</button>
+    <button type="button" id="eliminar-empleado">Eliminar Empleado</button>
+  </form>
+
+  <h4>Lista de Empleados</h4>
+  <table id="empleados-lista">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Rol</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Aquí se llenarán los empleados -->
+    </tbody>
+  </table>
+
+  <h4>Búsqueda de Empleado</h4>
+  <input type="text" id="buscar-empleado" placeholder="Buscar por nombre..." />
+</div>
+
 
   <div id="cliente-content" class="oculto">
     <h2>Bienvenido Cliente</h2>
