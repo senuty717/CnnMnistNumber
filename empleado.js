@@ -21,33 +21,30 @@ function mostrarPredicciones(predicciones) {
     tablaResultado.appendChild(fila);
   });
 
-  // Habilitar los checkboxes para que el usuario pueda interactuar con ellos
+  // Habilitar todos los checkboxes para asegurar la interacción
   const checkboxes = document.querySelectorAll('.acertado-checkbox');
   checkboxes.forEach(checkbox => {
-    checkbox.disabled = false; // Asegurarse de que los checkboxes son editables
+    checkbox.disabled = false; // Asegurarse de que los checkboxes sean interactivos
   });
 }
 
 // Escuchar el evento personalizado 'actualizarPredicciones' que se dispara desde script.js
-document.addEventListener('actualizarPredicciones', function(event) {
+document.addEventListener('actualizarPredicciones', function (event) {
   const predicciones = event.detail; // Los datos de las predicciones están en event.detail
   mostrarPredicciones(predicciones); // Mostrar las predicciones en la tabla
 });
 
 // Lógica para el botón "Guardar"
-document.getElementById('guardar-btn').addEventListener('click', function() {
+document.getElementById('guardar-btn').addEventListener('click', function () {
   // Verificar si hay predicciones antes de guardar
-  const predicciones = document.querySelectorAll('.acertado-checkbox');
-  if (predicciones.length === 0) {
+  const checkboxes = document.querySelectorAll('.acertado-checkbox');
+  if (checkboxes.length === 0) {
     alert("No hay resultados para guardar.");
     return;
   }
 
-  // Obtener todos los checkboxes "Acertado"
-  const checkboxes = document.querySelectorAll('.acertado-checkbox');
-  const resultados = [];
-
   // Recopilar los resultados y el estado de los checkboxes
+  const resultados = [];
   checkboxes.forEach(checkbox => {
     resultados.push({
       modelo: checkbox.getAttribute('data-modelo'),
@@ -64,10 +61,11 @@ document.getElementById('guardar-btn').addEventListener('click', function() {
 
   // Mostrar mensaje de éxito
   alert("Resultados guardados.");
+  console.log("Resultados guardados:", resultados); // Para depuración
 });
 
 // Lógica para el botón "Listar Resultados"
-document.getElementById('listar-btn').addEventListener('click', function() {
+document.getElementById('listar-btn').addEventListener('click', function () {
   // Verificar si hay resultados guardados
   if (resultadosGuardados.length === 0) {
     alert("No hay resultados guardados.");
@@ -107,12 +105,19 @@ document.getElementById('listar-btn').addEventListener('click', function() {
         <td>${index + 1}-${subIndex + 1}</td>
         <td>${resultado.prediccion}</td>
         <td>Modelo ${resultado.modelo}</td>
-        <td><input type="checkbox" ${resultado.acertado ? "checked" : ""}></td>
+        <td><input type="checkbox" ${resultado.acertado ? "checked" : ""} disabled></td>
       `;
       tbody.appendChild(fila);
     });
   });
 
-  // Agregar la tabla a la página (puedes agregarla en un contenedor específico si lo deseas)
-  document.body.appendChild(tablaListado);  // Se agrega al final de la página, puedes cambiar esto si necesitas agregarla en un contenedor específico
+  // Agregar la tabla a la página
+  document.body.appendChild(tablaListado); // Agregar al final de la página
+});
+
+// Listener para detectar cambios en los checkboxes (para depuración o lógica adicional)
+document.addEventListener('change', (event) => {
+  if (event.target.classList.contains('acertado-checkbox')) {
+    console.log(`Checkbox cambiado: Modelo=${event.target.dataset.modelo}, Marcado=${event.target.checked}`);
+  }
 });
