@@ -255,11 +255,11 @@ table th {
 #ventana-flotante .acertado-checkbox {
   -webkit-appearance: none; /* Eliminar el estilo predeterminado del checkbox */
   appearance: none; /* Eliminar el estilo predeterminado del checkbox */
-  width: 20px; /* Ajustar el tamaño del checkbox */
-  height: 20px; /* Ajustar el tamaño del checkbox */
-  background-color: black; /* Fondo negro para mayor visibilidad */
-  border: 2px solid white; /* Borde blanco para resaltar */
-  border-radius: 4px; /* Bordes redondeados */
+  width: 30px; /* Aumentar el tamaño del checkbox para mejor visibilidad */
+  height: 30px; /* Aumentar el tamaño del checkbox */
+  background-color: white; /* Fondo blanco cuando no está marcado */
+  border: 3px solid white; /* Borde blanco más grueso */
+  border-radius: 5px; /* Bordes redondeados */
   position: relative;
   cursor: pointer; /* Cambiar el cursor al pasar sobre el checkbox */
   transition: background-color 0.3s, border-color 0.3s; /* Transición suave para el cambio de fondo y borde */
@@ -275,16 +275,16 @@ table th {
 #ventana-flotante .acertado-checkbox:checked::after {
   content: ''; /* Crear contenido vacío */
   position: absolute;
-  top: 2px; /* Ajustar la posición del "tick" */
+  top: 8px; /* Ajustar la posición del "tick" */
   left: 5px; /* Ajustar la posición del "tick" */
-  width: 6px; /* Tamaño del "tick" */
-  height: 10px; /* Tamaño del "tick" */
+  width: 10px; /* Aumentar el tamaño del "tick" */
+  height: 15px; /* Aumentar el tamaño del "tick" */
   border: solid white; /* Borde blanco para el "tick" */
-  border-width: 0 2px 2px 0; /* Crear el "tick" */
+  border-width: 0 3px 3px 0; /* Crear el "tick" */
   transform: rotate(45deg); /* Rotar para formar el "tick" */
 }
 
-/* Opcionalmente, puedes añadir un estilo al checkbox no marcado */
+/* Estilo de checkbox no marcado */
 #ventana-flotante .acertado-checkbox:not(:checked) {
   background-color: white; /* Fondo blanco cuando no está marcado */
   border-color: white; /* Borde blanco cuando no está marcado */
