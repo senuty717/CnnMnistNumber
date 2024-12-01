@@ -19,7 +19,7 @@
 <body>
 <main class="main"> <!-- La clase main para que se apliquen estilos -->
   <div id="login-form">
-    <h2>Iniciar Sesión 2</h2>
+    <h2>Iniciar Sesión</h2>
     <form id="formulario-login">
       <label for="username">Usuario:</label>
       <input type="text" id="username" placeholder="Ingresa tu usuario" required />
@@ -44,39 +44,34 @@
   </div>
 
   <!-- Sección para el empleado -->
-<!-- Contenido para el empleado -->
-<div id="empleado-content" class="oculto">
+  <div id="empleado-content" class="oculto">
     <h2>Bienvenido Empleado</h2>
-
-    <div>
-        <h3>Gestión de Datos</h3>
-        <button id="listar-btn">Listar Elementos</button>
-        <button id="buscar-btn">Buscar Elemento</button>
-        <button id="dar-alta-btn">Dar de Alta</button>
-        <button id="modificar-btn">Modificar Elemento</button>
-        <button id="baja-btn">Dar de Baja</button>
-        
-        <div id="resultado-lista"></div>
-        <div id="form-buscar" class="oculto">
-            <input type="text" id="buscar-id" placeholder="ID a buscar" />
-            <button id="buscar-id-btn">Buscar</button>
-            <div id="resultado-buscar"></div>
-        </div>
-        <div id="form-dar-alta" class="oculto">
-            <input type="text" id="nuevo-dato" placeholder="Nuevo Dato" />
-            <button id="dar-alta-btn">Dar de Alta</button>
-        </div>
-        <div id="form-modificar" class="oculto">
-            <input type="text" id="modificar-id" placeholder="ID a modificar" />
-            <input type="text" id="nuevo-valor" placeholder="Nuevo valor" />
-            <button id="modificar-id-btn">Modificar</button>
-        </div>
-        <div id="form-baja" class="oculto">
-            <input type="text" id="baja-id" placeholder="ID a eliminar" />
-            <button id="baja-id-btn">Eliminar</button>
-        </div>
+    <button id="listar-btn">Listar Elementos</button>
+    <button id="buscar-btn">Buscar Elemento</button>
+    <button id="dar-alta-btn">Dar de Alta</button>
+    <button id="modificar-btn">Modificar Elemento</button>
+    <button id="baja-btn">Dar de Baja</button>
+    
+    <div id="resultado-lista"></div>
+    <div id="form-buscar" class="oculto">
+      <input type="text" id="buscar-id" placeholder="ID a buscar" />
+      <button id="buscar-id-btn">Buscar</button>
+      <div id="resultado-buscar"></div>
     </div>
-</div>
+    <div id="form-dar-alta" class="oculto">
+      <input type="text" id="nuevo-dato" placeholder="Nuevo Dato" />
+      <button id="dar-alta-btn">Dar de Alta</button>
+    </div>
+    <div id="form-modificar" class="oculto">
+      <input type="text" id="modificar-id" placeholder="ID a modificar" />
+      <input type="text" id="nuevo-valor" placeholder="Nuevo valor" />
+      <button id="modificar-id-btn">Modificar</button>
+    </div>
+    <div id="form-baja" class="oculto">
+      <input type="text" id="baja-id" placeholder="ID a eliminar" />
+      <button id="baja-id-btn">Eliminar</button>
+    </div>
+  </div>
 
   <div id="cliente-content" class="oculto">
     <h2>Bienvenido Cliente</h2>
@@ -182,6 +177,7 @@
   <script src="script.js"></script>
   <script src="login.js"></script>
   <script src="consola.js"></script>
+  <script src="empleado.js"></script>
 </body>
 
 </html>
