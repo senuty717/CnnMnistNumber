@@ -3,12 +3,9 @@ let resultadosGuardados = []; // Para almacenar los resultados guardados
 let idContador = 1; // Para crear un ID único por cada resultado
 
 const guardarBtn = document.getElementById("guardar-btn");
-const modificarBtn = document.getElementById("modificar-btn");
 const buscarBtn = document.getElementById("buscar-btn");
 
 const formularioBuscar = document.getElementById("form-buscar");
-const formularioGuardar = document.getElementById("form-guardar");
-const formularioModificar = document.getElementById("form-modificar");
 
 // Elementos de la tabla
 const tablaResultado = document.getElementById("resultado-lista").getElementsByTagName('tbody')[0];
@@ -54,47 +51,16 @@ function modificarAcertada(id) {
   checkbox.checked = resultado.acertada;
 }
 
-// Función para modificar una fila
-function modificarFila(id) {
-  const resultado = resultadosGuardados.find(r => r.id === id);
-
-  // Mostrar formulario para modificar la fila
-  document.getElementById("modificar-id").value = resultado.id;
-  document.getElementById("nuevo-valor").value = resultado.prediccion;
-  formularioModificar.classList.remove("oculto");
-}
-
-// Función para guardar el resultado
+// Función para guardar el resultado y borrar la tabla
 function guardarElemento() {
-  const id = document.getElementById("modificar-id").value.trim();
-  const nuevoValor = document.getElementById("nuevo-valor").value.trim();
+  // Limpiar la tabla antes de guardar los resultados
+  tablaResultado.innerHTML = "";
 
-  if (id === "" || nuevoValor === "") {
-    alert("Por favor, ingresa el ID y el nuevo valor.");
-    return;
-  }
-
-  // Encontrar el resultado a modificar y actualizarlo
-  const resultado = resultadosGuardados.find(r => r.id === parseInt(id));
-  if (resultado) {
-    resultado.prediccion = nuevoValor;
-    alert(`Resultado con ID ${id} modificado. Nuevo valor: ${nuevoValor}`);
-    
-    // Actualizar la tabla
-    const fila = tablaResultado.getElementsByTagName('tr')[id - 1];
-    const celdaPrediccion = fila.getElementsByTagName('td')[2];
-    celdaPrediccion.innerText = nuevoValor;
-    
-    // Limpiar formulario
-    document.getElementById("modificar-id").value = "";
-    document.getElementById("nuevo-valor").value = "";
-    formularioModificar.classList.add("oculto");
-  } else {
-    alert("Resultado no encontrado.");
-  }
+  // Guardamos los resultados en el array
+  alert('Los resultados han sido guardados.');
 }
 
-// Función para buscar un resultado
+// Función para buscar un intento por ID
 function buscarElemento() {
   const idBuscar = document.getElementById("buscar-id").value.trim();
 
@@ -143,7 +109,6 @@ function listarElementos() {
 
 // Event listeners para los botones
 guardarBtn.addEventListener("click", guardarElemento);
-modificarBtn.addEventListener("click", guardarElemento); // Usamos la misma función de "guardar" para modificar
 buscarBtn.addEventListener("click", buscarElemento);
 
 // Evento para predecir
