@@ -225,7 +225,7 @@ table th {
 }
 
 .ventana-contenido {
-  background: white; /* Fondo blanco */
+  background: black; /* Fondo negro */
   padding: 20px; /* Relleno interno */
   border-radius: 8px; /* Bordes redondeados */
   width: 80%; /* Ancho relativo al viewport */
