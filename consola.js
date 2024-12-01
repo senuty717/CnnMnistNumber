@@ -1,96 +1,98 @@
-let modelo; // Variable global para el modelo cargado
-const resultadosGuardados = []; // Para almacenar los resultados guardados
+// Array para almacenar los resultados guardados
+let resultadosGuardados = [];
+
+// Elementos de la tabla
 const tablaResultado = document.getElementById("resultado-lista").getElementsByTagName('tbody')[0];
-let idContador = 1;
 
-// Cargar el modelo
-async function cargarModelo() {
-  modelo = await tf.loadLayersModel('ruta/a/tu/modelo.json'); // Asegúrate de poner la ruta correcta
-  console.log("Modelo cargado!");
-}
-
-// Función para predecir y mostrar los resultados en la tabla
-async function predecir() {
-  // 1. Obtén la imagen del canvas
-  const imagen = document.getElementById("minicanvas");
-  const tensor = tf.browser.fromPixels(imagen).resizeNearestNeighbor([28, 28]).mean(2).expandDims(0).expandDims(-1).toFloat().div(tf.scalar(255));
-
-  // 2. Realiza la predicción
-  const prediccion = await modelo.predict(tensor).data();
-  const prediccionArray = Array.from(prediccion);
-  const maxPrediccion = Math.max(...prediccionArray);
-  const modeloResultado = prediccionArray.indexOf(maxPrediccion);
-
-  // 3. Simula que se obtiene el resultado de varios modelos (puedes agregar más lógica si tienes diferentes modelos)
-  const resultados = [
-    { modelo: "CNN", prediccion: modeloResultado, acertada: false },
-    { modelo: "CNN+DO", prediccion: 7, acertada: true },
-    { modelo: "CNN+AD", prediccion: 1, acertada: false },
-    { modelo: "CNN+DO+AD", prediccion: 8, acertada: true },
-  ];
-
+// Función para mostrar las predicciones en la tabla
+function mostrarPredicciones(predicciones) {
   // Limpiar la tabla antes de agregar nuevos resultados
   tablaResultado.innerHTML = "";
 
-  // Añadir las filas con los resultados
-  resultados.forEach((resultado, index) => {
+  // Iterar sobre las predicciones y agregar una fila por cada modelo
+  predicciones.forEach((prediccion, index) => {
     const fila = document.createElement("tr");
     fila.innerHTML = `
-      <td>${idContador++}</td>
-      <td>${resultado.modelo}</td>
-      <td>${resultado.prediccion}</td>
-      <td><input type="checkbox" ${resultado.acertada ? "checked" : ""} onclick="modificarAcertada(${idContador - 1})"></td>
-    `;
-    tablaResultado.appendChild(fila);
-
-    // Guardar el resultado para futuras modificaciones o consultas
-    resultadosGuardados.push({ id: idContador - 1, ...resultado });
-  });
-}
-
-// Función para modificar el valor de "Acertada"
-function modificarAcertada(id) {
-  const resultado = resultadosGuardados.find(r => r.id === id);
-  resultado.acertada = !resultado.acertada; // Cambiar el valor de acertada
-
-  // Opcional: Si quieres reflejar la modificación de inmediato en la tabla
-  const fila = tablaResultado.getElementsByTagName('tr')[id - 1];
-  const checkbox = fila.getElementsByTagName('input')[0];
-  checkbox.checked = resultado.acertada;
-}
-
-// Función para guardar el resultado y borrar la tabla
-function guardarElemento() {
-  // Limpiar la tabla antes de guardar los resultados
-  tablaResultado.innerHTML = "";
-
-  // Guardamos los resultados en el array
-  alert('Los resultados han sido guardados.');
-}
-
-// Función para listar todos los resultados guardados
-function listarElementos() {
-  // Limpiar los resultados previos
-  tablaResultado.innerHTML = "";
-
-  resultadosGuardados.forEach(resultado => {
-    const fila = document.createElement("tr");
-    fila.innerHTML = `
-      <td>${resultado.id}</td>
-      <td>${resultado.modelo}</td>
-      <td>${resultado.prediccion}</td>
-      <td><input type="checkbox" ${resultado.acertada ? "checked" : ""} disabled></td>
+      <td>${index + 1}</td>
+      <td>Modelo ${prediccion.modelo}</td>
+      <td>${prediccion.indice}</td>
+      <td><input type="checkbox" class="acertado-checkbox" data-modelo="${prediccion.modelo}" disabled checked></td>
     `;
     tablaResultado.appendChild(fila);
   });
 }
 
-// Cargar el modelo cuando se inicia la página
-window.onload = () => {
-  cargarModelo();
-};
+// Escuchar el evento personalizado 'actualizarPredicciones' que se dispara desde script.js
+document.addEventListener('actualizarPredicciones', function(event) {
+  const predicciones = event.detail; // Los datos de las predicciones están en event.detail
+  mostrarPredicciones(predicciones); // Mostrar las predicciones en la tabla
+});
 
-// Event listeners para los botones
-document.getElementById("guardar-btn").addEventListener("click", guardarElemento);
-document.getElementById("listar-btn").addEventListener("click", listarElementos);
-document.getElementById("predecir").addEventListener("click", predecir);
+// Lógica para el botón "Guardar"
+document.getElementById('guardar-btn').addEventListener('click', function() {
+  // Obtener todos los checkboxes "Acertado"
+  const checkboxes = document.querySelectorAll('.acertado-checkbox');
+  const resultados = [];
+
+  // Recopilar los resultados y el estado de los checkboxes
+  checkboxes.forEach(checkbox => {
+    resultados.push({
+      modelo: checkbox.getAttribute('data-modelo'),
+      acertado: checkbox.checked
+    });
+  });
+
+  // Guardar los resultados en el array
+  resultadosGuardados.push(resultados);
+
+  // Limpiar la tabla después de guardar los resultados
+  tablaResultado.innerHTML = "";
+
+  // Mostrar mensaje de éxito
+  alert("Resultados guardados.");
+});
+
+// Lógica para el botón "Listar Resultados"
+document.getElementById('listar-btn').addEventListener('click', function() {
+  // Crear una tabla para mostrar los resultados guardados
+  if (resultadosGuardados.length === 0) {
+    alert("No hay resultados guardados.");
+    return;
+  }
+
+  // Crear una nueva tabla para mostrar los resultados guardados
+  const tablaListado = document.createElement("table");
+  tablaListado.classList.add("tabla-listado");
+  tablaListado.innerHTML = `
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Modelo</th>
+        <th>Predicción</th>
+        <th>Acertado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Los resultados guardados se insertarán aquí -->
+    </tbody>
+  `;
+
+  const tbody = tablaListado.querySelector('tbody');
+
+  // Iterar sobre los resultados guardados y mostrarlos en la tabla
+  resultadosGuardados.forEach((resultados, index) => {
+    resultados.forEach((resultado, subIndex) => {
+      const fila = document.createElement("tr");
+      fila.innerHTML = `
+        <td>${index + 1}-${subIndex + 1}</td>
+        <td>Modelo ${resultado.modelo}</td>
+        <td>${resultado.acertado ? "Sí" : "No"}</td>
+        <td><input type="checkbox" disabled ${resultado.acertado ? "checked" : ""}></td>
+      `;
+      tbody.appendChild(fila);
+    });
+  });
+
+  // Agregar la tabla a la página (puedes agregarla en un contenedor específico si lo deseas)
+  document.body.appendChild(tablaListado);  // Se agrega al final de la página, puedes cambiar esto si necesitas agregarla en un contenedor específico
+});
