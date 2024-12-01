@@ -16,18 +16,26 @@
       drawingcanvas.clear();
     }
 
-function predecir() {
+async function predecir() {
+  // Verificar si los modelos están cargados correctamente
+  if (!modelo || !modelo2 || !modelo3 || !modelo4) {
+    console.error("Modelos no cargados correctamente");
+    return;
+  }
+
   // Redimensiona el dibujo a 28x28 píxeles en el minicanvas
   resample_single(canvas, 28, 28, minicanvas);
-  // Toma los datos de imagen del minicanvas
   var imgData = ctx2.getImageData(0, 0, 28, 28);
-  var arr = []; // Arreglo final que contendrá la imagen en formato adecuado
-  var arr28 = []; // Subarreglo de 28 píxeles que se agregará a `arr`
+  var arr = [];
+  var arr28 = [];
+
+  // Verificar que la imagen no esté vacía
+  console.log("Imagen original:", imgData.data);
 
   // Convierte los datos de la imagen en un arreglo de blanco y negro
   for (var p = 0, i = 0; p < imgData.data.length; p += 4) {
-    var valor = imgData.data[p + 3] / 255; // Normaliza valor alfa de 0 a 1
-    arr28.push([valor]); // Agrega al subarreglo
+    var valor = imgData.data[p + 3] / 255;
+    arr28.push([valor]);
     if (arr28.length == 28) {
       arr.push(arr28);
       arr28 = [];
@@ -37,6 +45,7 @@ function predecir() {
   arr = [arr]; // Organiza el arreglo en la forma requerida para Tensor4D (1,28,28,1)
 
   var tensor4 = tf.tensor4d(arr); // Crea el tensor necesario para el modelo
+  console.log("Tensor creado:", tensor4);
 
   // Predicción de cada modelo
   var prediccionesTop = [];
@@ -44,7 +53,13 @@ function predecir() {
   [modelo, modelo2, modelo3, modelo4].forEach((model, index) => {
     var inicio = performance.now();
     var resultados = model.predict(tensor4).dataSync();
-    var top3 = getTopPredictions(resultados); // Obtenemos los top 3
+
+    // Verificar si hay valores NaN en los resultados
+    if (resultados.some(isNaN)) {
+      console.error(`Modelo ${index + 1} devolvió NaN en las predicciones.`);
+    }
+
+    var top3 = getTopPredictions(resultados);
     var fin = performance.now();
     var tiempo = fin - inicio;
     console.log(`Predicción ${index + 1}:`, top3, "Tiempo:", tiempo.toFixed(2) + " ms");
@@ -58,11 +73,10 @@ function predecir() {
 
   // Disparar un evento personalizado con los resultados de las predicciones
   const evento = new CustomEvent('actualizarPredicciones', {
-    detail: prediccionesTop  // Los detalles del evento contienen las predicciones top
+    detail: prediccionesTop
   });
-  document.dispatchEvent(evento);  // Disparamos el evento para que 'consola.js' lo escuche
+  document.dispatchEvent(evento);
 }
-
 // Función para obtener los top 3 resultados de las predicciones
 function getTopPredictions(resultados) {
   // Creamos un array con índices y valores
