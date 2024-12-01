@@ -17,16 +17,11 @@ function cargarDatos() {
   // Limpiar la tabla antes de cargar nuevos datos
   tabla.innerHTML = '';
 
-  // Si no hay datos, mostrar un mensaje
-  if (predicciones.length === 0) {
-    tabla.innerHTML = '<tr><td colspan="4">No hay datos disponibles.</td></tr>';
-    return;
-  }
-
   // Crear filas para cada predicción
   predicciones.forEach(dato => {
     const fila = document.createElement('tr');
     fila.innerHTML = `
+      <td>${dato.id}</td>
       <td>${dato.modelo}</td>
       <td>${dato.prediccion !== null ? dato.prediccion : 'No predicha'}</td>
       <td>${dato.acertada ? 'Acertada' : 'No Acertada'}</td>
@@ -78,15 +73,40 @@ function modificarDato(id) {
   }
 }
 
-// Función para mostrar la sección del empleado tras iniciar sesión
-function mostrarEmpleado() {
-  document.getElementById('login-form').classList.add('oculto');
-  document.getElementById('empleado-content').classList.remove('oculto');
-}
+// Función para buscar un modelo por ID
+document.getElementById('buscar-id-btn').addEventListener('click', function() {
+  const idBuscado = document.getElementById('buscar-id').value;
+  const predicciones = JSON.parse(localStorage.getItem('predicciones'));
+  const modelo = predicciones.find(d => d.id == idBuscado);
 
-// Función para establecer el rol tras iniciar sesión correctamente
-function setRole(role) {
-  if (role === 'employee') {
-    mostrarEmpleado();
+  if (modelo) {
+    document.getElementById('resultado-buscar').innerHTML = `
+      <p>Modelo encontrado:</p>
+      <p>ID: ${modelo.id}, Modelo: ${modelo.modelo}, Predicción: ${modelo.prediccion}, Acertada: ${modelo.acertada ? 'Sí' : 'No'}</p>
+    `;
+  } else {
+    document.getElementById('resultado-buscar').innerHTML = `<p>No se encontró el modelo con ID ${idBuscado}</p>`;
   }
-}
+});
+
+// Función para dar de alta un nuevo modelo
+document.getElementById('dar-alta-btn').addEventListener('click', function() {
+  const nuevoModelo = document.getElementById('nuevo-modelo').value;
+  const predicciones = JSON.parse(localStorage.getItem('predicciones'));
+  const nuevoId = predicciones.length + 1;
+  
+  predicciones.push({ id: nuevoId, modelo: nuevoModelo, prediccion: null, acertada: false });
+  localStorage.setItem('predicciones', JSON.stringify(predicciones));
+  cargarDatos(); // Recargar la tabla con los datos actualizados
+});
+
+// Función para dar de baja un modelo
+document.getElementById('baja-id-btn').addEventListener('click', function() {
+  const idBaja = document.getElementById('baja-id').value;
+  let predicciones = JSON.parse(localStorage.getItem('predicciones'));
+
+  predicciones = predicciones.filter(d => d.id != idBaja);
+
+  localStorage.setItem('predicciones', JSON.stringify(predicciones));
+  cargarDatos(); // Recargar la tabla con los datos actualizados
+});
