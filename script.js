@@ -38,52 +38,41 @@ function predecir() {
 
   var tensor4 = tf.tensor4d(arr); // Crea el tensor necesario para el modelo
 
-  // Predicción de cada modelo y muestra de resultados en la tabla
-  var inicio1 = performance.now();
-  var resultados = modelo.predict(tensor4).dataSync();
-  var mayorIndice1 = resultados.indexOf(Math.max.apply(null, resultados));
-  var fin1 = performance.now();
-  var tiempo1 = fin1 - inicio1;
-  console.log("Predicción 1", mayorIndice1, "Tiempo:", tiempo1.toFixed(2) + " ms");
-  document.getElementById("resultado").innerHTML = mayorIndice1;
+  // Predicción de cada modelo
+  var prediccionesTop = [];
 
-  var inicio2 = performance.now();
-  var resultados2 = modelo2.predict(tensor4).dataSync();
-  var mayorIndice2 = resultados2.indexOf(Math.max.apply(null, resultados2));
-  var fin2 = performance.now();
-  var tiempo2 = fin2 - inicio2;
-  console.log("Predicción 2", mayorIndice2, "Tiempo:", tiempo2.toFixed(2) + " ms");
-  document.getElementById("resultado2").innerHTML = mayorIndice2;
+  [modelo, modelo2, modelo3, modelo4].forEach((model, index) => {
+    var inicio = performance.now();
+    var resultados = model.predict(tensor4).dataSync();
+    var top3 = getTopPredictions(resultados); // Obtenemos los top 3
+    var fin = performance.now();
+    var tiempo = fin - inicio;
+    console.log(`Predicción ${index + 1}:`, top3, "Tiempo:", tiempo.toFixed(2) + " ms");
 
-  var inicio3 = performance.now();
-  var resultados3 = modelo3.predict(tensor4).dataSync();
-  var mayorIndice3 = resultados3.indexOf(Math.max.apply(null, resultados3));
-  var fin3 = performance.now();
-  var tiempo3 = fin3 - inicio3;
-  console.log("Predicción 3", mayorIndice3, "Tiempo:", tiempo3.toFixed(2) + " ms");
-  document.getElementById("resultado3").innerHTML = mayorIndice3;
+    prediccionesTop.push({
+      modelo: index + 1,
+      topPredictions: top3,
+      tiempo: tiempo
+    });
+  });
 
-  var inicio4 = performance.now();
-  var resultados4 = modelo4.predict(tensor4).dataSync();
-  var mayorIndice4 = resultados4.indexOf(Math.max.apply(null, resultados4));
-  var fin4 = performance.now();
-  var tiempo4 = fin4 - inicio4;
-  console.log("Predicción 4", mayorIndice4, "Tiempo:", tiempo4.toFixed(2) + " ms");
-  document.getElementById("resultado4").innerHTML = mayorIndice4;
+  // Disparar un evento personalizado con los resultados de las predicciones
+  const evento = new CustomEvent('actualizarPredicciones', {
+    detail: prediccionesTop  // Los detalles del evento contienen las predicciones top
+  });
+  document.dispatchEvent(evento);  // Disparamos el evento para que 'consola.js' lo escuche
+}
 
-  // Crear un objeto con los resultados
-const predicciones = [
-  { indice: mayorIndice1, tiempo: tiempo1, modelo: 1 },
-  { indice: mayorIndice2, tiempo: tiempo2, modelo: 2 },
-  { indice: mayorIndice3, tiempo: tiempo3, modelo: 3 },
-  { indice: mayorIndice4, tiempo: tiempo4, modelo: 4 }
-];
-
-// Disparar un evento personalizado con los resultados de las predicciones
-const evento = new CustomEvent('actualizarPredicciones', {
-  detail: predicciones  // Los detalles del evento contienen las predicciones
-});
-document.dispatchEvent(evento);  // Disparamos el evento para que 'consola.js' lo escuche
+// Función para obtener los top 3 resultados de las predicciones
+function getTopPredictions(resultados) {
+  // Creamos un array con índices y valores
+  let indexedResults = resultados.map((valor, index) => ({ index, valor }));
+  // Ordenamos de mayor a menor y seleccionamos los tres primeros
+  indexedResults.sort((a, b) => b.valor - a.valor);
+  return indexedResults.slice(0, 3).map(item => ({
+    indice: item.index,
+    valor: item.valor
+  }));
 }
 
     function resample_single(canvas, width, height, resize_canvas) {
