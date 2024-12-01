@@ -305,4 +305,56 @@ table th {
   color: white; /* Texto blanco */
 }
 
+/* Estilo básico para el checkbox */
+input[type="checkbox"] {
+  -webkit-appearance: none; /* Eliminar la apariencia predeterminada en navegadores webkit */
+  appearance: none; /* Eliminar la apariencia predeterminada */
+  width: 30px; /* Ajustar el tamaño del checkbox */
+  height: 30px; /* Ajustar el tamaño del checkbox */
+  background-color: #fff; /* Fondo blanco cuando no está marcado */
+  border: 2px solid #ccc; /* Borde gris claro */
+  border-radius: 5px; /* Bordes redondeados */
+  position: relative; /* Necesario para los pseudo-elementos */
+  cursor: not-allowed; /* Cursor de no permitido cuando está deshabilitado */
+  transition: background-color 0.3s, border-color 0.3s; /* Transición suave para el cambio de fondo y borde */
+}
+
+/* Estilo cuando el checkbox está marcado */
+input[type="checkbox"]:checked {
+  background-color: green; /* Fondo verde cuando está marcado */
+  border-color: green; /* Borde verde cuando está marcado */
+}
+
+/* Pseudo-elemento para crear el "tick" dentro del checkbox */
+input[type="checkbox"]:checked::after {
+  content: ''; /* Crea contenido vacío */
+  position: absolute;
+  top: 8px; /* Ajusta la posición del "tick" dentro del checkbox */
+  left: 5px; /* Ajusta la posición del "tick" dentro del checkbox */
+  width: 10px; /* Tamaño del "tick" */
+  height: 15px; /* Tamaño del "tick" */
+  border: solid white; /* El "tick" será blanco */
+  border-width: 0 3px 3px 0; /* Crea el "tick" */
+  transform: rotate(45deg); /* Rota para formar el "tick" */
+}
+
+/* Estilo cuando el checkbox está deshabilitado */
+input[type="checkbox"]:disabled {
+  background-color: #ccc; /* Fondo gris claro cuando está deshabilitado */
+  border-color: #aaa; /* Borde gris cuando está deshabilitado */
+  cursor: not-allowed; /* Cursor de no permitido */
+}
+
+/* Pseudo-elemento para el "tick" cuando el checkbox está deshabilitado y marcado */
+input[type="checkbox"]:checked:disabled::after {
+  content: ''; /* Crea contenido vacío */
+  position: absolute;
+  top: 8px; /* Ajusta la posición del "tick" */
+  left: 5px; /* Ajusta la posición del "tick" */
+  width: 10px; /* Tamaño del "tick" */
+  height: 15px; /* Tamaño del "tick" */
+  border: solid white; /* "Tick" blanco */
+  border-width: 0 3px 3px 0; /* Crear el "tick" */
+  transform: rotate(45deg); /* Rota el "tick" */
+}
 
