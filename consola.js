@@ -1,44 +1,38 @@
 function mostrarDatosConsola(datos) {
-  const rol = localStorage.getItem("rol");
+  // Verificamos si el usuario es administrador basándonos en el rol directamente
+  const rol = localStorage.getItem("rol"); // Suponiendo que se guarda el rol en localStorage
+
   if (rol !== 'admin') {
     console.log("Acceso restringido a la consola.");
-    return;
+    return;  // Si no es admin, no mostramos la consola
   }
 
   const contenedorDatos = document.getElementById('datos-consola');
-  contenedorDatos.innerHTML = ''; // Limpiar los datos previos
+  
+  // Limpiamos los datos previos
+  contenedorDatos.innerHTML = '';
 
+  // Si los datos son un array de resultados, los mostramos
   if (Array.isArray(datos)) {
     datos.forEach(function(dato) {
-      const divModelo = document.createElement('div');
-      divModelo.classList.add('modelo-consola');
-
-      // Título del modelo
-      const titulo = document.createElement('h4');
-      titulo.textContent = `Modelo ${dato.modelo}`;
-      divModelo.appendChild(titulo);
-
-      // Tiempo de predicción
-      const tiempo = document.createElement('p');
-      tiempo.textContent = `Tiempo: ${dato.tiempo.toFixed(2)} ms`;
-      divModelo.appendChild(tiempo);
-
-      // Top 3 de predicciones
-      const top3 = document.createElement('ol'); // Lista ordenada
-      dato.top3.forEach((pred) => {
-        const li = document.createElement('li');
-        li.textContent = `Predicción ${pred.indice}: ${(pred.valor * 100).toFixed(2)}%`;
-        top3.appendChild(li);
-      });
-      divModelo.appendChild(top3);
-
-      // Agregar todo al contenedor principal
-      contenedorDatos.appendChild(divModelo);
+      const p = document.createElement('p');
+      
+      // Verificar que `dato` tiene tiempo y asegurarnos que sea un número
+      if (typeof dato.tiempo === 'number' && !isNaN(dato.tiempo)) {
+        // Formateamos el tiempo si es válido
+        dato.tiempo = dato.tiempo.toFixed(2) + ' ms';
+      } else {
+        dato.tiempo = 'Tiempo no disponible';
+      }
+      
+      p.textContent = `Modelo ${dato.modelo}: Predicción ${dato.indice}, Tiempo: ${dato.tiempo}`;
+      contenedorDatos.appendChild(p);
     });
   } else {
-    const mensaje = document.createElement('p');
-    mensaje.textContent = datos;
-    contenedorDatos.appendChild(mensaje);
+    // Si es solo un mensaje, lo mostramos
+    const p = document.createElement('p');
+    p.textContent = datos;
+    contenedorDatos.appendChild(p);
   }
 }
 
