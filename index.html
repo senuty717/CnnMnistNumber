@@ -19,7 +19,7 @@
 <body>
 <main class="main"> <!-- La clase main para que se apliquen estilos -->
   <div id="login-form">
-    <h2>Iniciar Sesión 1</h2>
+    <h2>Iniciar Sesión</h2>
     <form id="formulario-login">
       <label for="username">Usuario:</label>
       <input type="text" id="username" placeholder="Ingresa tu usuario" required />
@@ -48,12 +48,14 @@
   <h2>Bienvenido Empleado</h2>
 
   <!-- Botones de acción -->
+  <button id="predecir">Predecir</button>
   <button id="guardar-btn">Guardar</button>
   <button id="modificar-btn">Modificar</button>
   <button id="buscar-btn">Buscar</button>
+  <button id="listar-btn" onclick="listarElementos()">Listar Resultados</button>
 
   <!-- Formularios para las acciones -->
-  <div id="form-guardar">
+  <div id="form-guardar" class="oculto">
     <input type="text" id="nuevo-modelo" placeholder="Nuevo Modelo" />
     <button id="guardar-btn">Guardar</button>
   </div>
@@ -78,6 +80,7 @@
         <th>Modelo</th>
         <th>Predicción</th>
         <th>Acertada</th>
+        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
