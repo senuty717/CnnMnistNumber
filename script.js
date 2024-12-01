@@ -15,6 +15,117 @@
       ctx1.clearRect(0, 0, canvas.width, canvas.height);
       drawingcanvas.clear();
     }
+// Función que se ejecuta cuando el empleado realiza una predicción
+function predecirEmpleado() {
+  // Redimensiona el dibujo a 28x28 píxeles en el minicanvas
+  resample_single(canvas, 28, 28, minicanvas);
+
+  // Toma los datos de imagen del minicanvas
+  var imgData = ctx2.getImageData(0, 0, 28, 28);
+  var arr = [];
+  var arr28 = [];
+
+  // Convierte los datos de la imagen en un arreglo de blanco y negro
+  for (var p = 0, i = 0; p < imgData.data.length; p += 4) {
+    var valor = imgData.data[p + 3] / 255;
+    arr28.push([valor]);
+    if (arr28.length == 28) {
+      arr.push(arr28);
+      arr28 = [];
+    }
+  }
+
+  arr = [arr]; // Organiza el arreglo en la forma requerida para Tensor4D (1,28,28,1)
+
+  var tensor4 = tf.tensor4d(arr); // Crea el tensor necesario para el modelo
+
+  // Predicción de cada modelo y muestra de resultados en la tabla
+  var inicio1 = performance.now();
+  var resultados = modelo.predict(tensor4).dataSync();
+  var mayorIndice1 = resultados.indexOf(Math.max.apply(null, resultados));
+  var fin1 = performance.now();
+  var tiempo1 = fin1 - inicio1;
+
+  var inicio2 = performance.now();
+  var resultados2 = modelo2.predict(tensor4).dataSync();
+  var mayorIndice2 = resultados2.indexOf(Math.max.apply(null, resultados2));
+  var fin2 = performance.now();
+  var tiempo2 = fin2 - inicio2;
+
+  var inicio3 = performance.now();
+  var resultados3 = modelo3.predict(tensor4).dataSync();
+  var mayorIndice3 = resultados3.indexOf(Math.max.apply(null, resultados3));
+  var fin3 = performance.now();
+  var tiempo3 = fin3 - inicio3;
+
+  var inicio4 = performance.now();
+  var resultados4 = modelo4.predict(tensor4).dataSync();
+  var mayorIndice4 = resultados4.indexOf(Math.max.apply(null, resultados4));
+  var fin4 = performance.now();
+  var tiempo4 = fin4 - inicio4;
+
+  // Crear un objeto con los resultados
+  const predicciones = {
+    fecha: new Date().toLocaleString(),
+    modelo1: mayorIndice1,
+    modelo2: mayorIndice2,
+    modelo3: mayorIndice3,
+    modelo4: mayorIndice4,
+    tiempo: Math.max(tiempo1, tiempo2, tiempo3, tiempo4).toFixed(2) + " ms" // Tiempo más largo entre las predicciones
+  };
+
+  // Agregar la predicción al historial
+  agregarPrediccionHistorial(predicciones);
+}
+
+// Función para agregar una predicción al historial
+function agregarPrediccionHistorial(prediccion) {
+  const tabla = document.getElementById("tabla-predicciones").getElementsByTagName('tbody')[0];
+
+  // Crear una nueva fila
+  const nuevaFila = tabla.insertRow();
+
+  // Crear celdas para cada dato de la predicción
+  const celdaFecha = nuevaFila.insertCell(0);
+  celdaFecha.textContent = prediccion.fecha;
+
+  const celdaModelo1 = nuevaFila.insertCell(1);
+  celdaModelo1.textContent = prediccion.modelo1;
+
+  const celdaModelo2 = nuevaFila.insertCell(2);
+  celdaModelo2.textContent = prediccion.modelo2;
+
+  const celdaModelo3 = nuevaFila.insertCell(3);
+  celdaModelo3.textContent = prediccion.modelo3;
+
+  const celdaModelo4 = nuevaFila.insertCell(4);
+  celdaModelo4.textContent = prediccion.modelo4;
+
+  const celdaTiempo = nuevaFila.insertCell(5);
+  celdaTiempo.textContent = prediccion.tiempo;
+}
+
+// Inicializar la interfaz para el empleado cuando se hace login
+function mostrarContenido(rol) {
+  // Ocultar todo el contenido de roles
+  adminContent.classList.add("oculto");
+  empleadoContent.classList.add("oculto");
+  clienteContent.classList.add("oculto");
+
+  // Mostrar el contenido correspondiente al rol
+  switch (rol) {
+    case 'empleado':
+      empleadoContent.classList.remove("oculto");
+      localStorage.setItem("rol", "empleado");
+      break;
+  }
+
+  // Eliminar la clase 'oculto' de todos los elementos con la clase 'contenido-roles'
+  const contenidosRoles = document.querySelectorAll('.contenido-roles');
+  contenidosRoles.forEach(function(contenido) {
+    contenido.classList.remove("oculto");
+  });
+}
 
 function predecir() {
   // Redimensiona el dibujo a 28x28 píxeles en el minicanvas
