@@ -19,7 +19,7 @@
 <body>
 <main class="main"> <!-- La clase main para que se apliquen estilos -->
   <div id="login-form">
-    <h2>Iniciar Sesión</h2>
+    <h2>Iniciar Sesión 1</h2>
     <form id="formulario-login">
       <label for="username">Usuario:</label>
       <input type="text" id="username" placeholder="Ingresa tu usuario" required />
@@ -43,7 +43,6 @@
 </div>
   </div>
 
-  <!-- Sección para el empleado -->
   <!-- Sección del empleado -->
   <div id="empleado-content" class="oculto">
     <h2>Bienvenido Empleado</h2>
@@ -57,10 +56,11 @@
     <table id="resultado-lista">
       <thead>
         <tr>
-          <th>Modelo 1 (CNN)</th>
-          <th>Modelo 2 (CNN+DO)</th>
-          <th>Modelo 3 (CNN+AD)</th>
-          <th>Modelo 4 (CNN+DO+AD)</th>
+          <th>ID</th>
+          <th>Modelo</th>
+          <th>Predicción</th>
+          <th>Acertada</th>
+          <th>Modificar</th>
         </tr>
       </thead>
       <tbody>
@@ -76,7 +76,7 @@
     </div>
 
     <div id="form-dar-alta" class="oculto">
-      <input type="text" id="nuevo-dato" placeholder="Nuevo Dato" />
+      <input type="text" id="nuevo-modelo" placeholder="Nuevo Modelo" />
       <button id="dar-alta-btn">Dar de Alta</button>
     </div>
 
@@ -90,11 +90,6 @@
       <input type="text" id="baja-id" placeholder="ID a eliminar" />
       <button id="baja-id-btn">Eliminar</button>
     </div>
-  </div>
-
-  <!-- Contenedor para la Consola -->
-  <div id="consola" class="oculto">
-    <div id="datos-consola"></div>
   </div>
 
   <div id="cliente-content" class="oculto">
