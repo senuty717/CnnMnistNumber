@@ -18,6 +18,7 @@
 
 <body>
 <main class="main"> <!-- La clase main para que se apliquen estilos -->
+  <!-- Formulario de inicio de sesión -->
   <div id="login-form">
     <h2>Iniciar Sesión 1</h2>
     <form id="formulario-login">
@@ -28,148 +29,158 @@
       <input type="password" id="password" placeholder="Ingresa tu contraseña" required />
 
       <button type="submit">Iniciar Sesión</button>
+      <!-- Botón para enviar el formulario de inicio de sesión -->
       <p id="error-message" class="oculto"></p>
+      <!-- Mensaje de error (inicialmente oculto) -->
     </form>
   </div>
 
+  <!-- Contenido para Administrador (oculto por defecto) -->
   <div id="admin-content" class="oculto">
     <h2>Bienvenido Administrador</h2>
-    <!-- Contenedor para la consola -->
-<div id="consola" class="oculto">
-  <h3>Consola de Administración</h3>
-  <div id="datos-consola">
-    <!-- Los datos de la consola se agregarán aquí -->
+    <!-- Contenedor para la consola del administrador -->
+    <div id="consola" class="oculto">
+      <h3>Consola de Administración</h3>
+      <div id="datos-consola">
+        <!-- Los datos de la consola se agregarán aquí -->
+      </div>
+    </div>
   </div>
-</div>
+
+  <!-- Sección para el empleado -->
+  <div id="empleado-content" class="oculto">
+    <h2>Bienvenido Empleado</h2>
+
+    <!-- Botones para guardar y listar resultados -->
+    <button id="guardar-btn">Guardar</button>
+    <button id="listar-btn">Listar Resultados</button>
+
+    <!-- Tabla para mostrar los resultados -->
+    <table id="resultado-lista">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Modelo</th>
+          <th>Predicción</th>
+          <th>Acertado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Aquí se llenarán los resultados -->
+      </tbody>
+    </table>
   </div>
 
-  <!-- Sección del empleado -->
- <div id="empleado-content" class="oculto">
-  <h2>Bienvenido Empleado</h2>
-
-<!-- Botones -->
-<button id="guardar-btn">Guardar</button>
-<button id="listar-btn">Listar Resultados</button>
-
-<!-- Tabla de resultados -->
-<table id="resultado-lista">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Modelo</th>
-      <th>Predicción</th>
-      <th>Acertado</th>
-    </tr>
-  </thead>
-  <tbody>
-    <!-- Aquí se llenarán los resultados -->
-  </tbody>
-</table>
-</div>
-
+  <!-- Contenido para el cliente (oculto por defecto) -->
   <div id="cliente-content" class="oculto">
     <h2>Bienvenido Cliente</h2>
   </div>
 
-   <div class="contenido-roles oculto"></div> <!-- División vacía para separación visual -->
+  <!-- Contenedor de contenido para roles de usuario -->
+  <div class="contenido-roles oculto"></div> <!-- División vacía para separación visual -->
 
-    <!-- Contenedor principal de la página -->
-    <div class="contenido-roles oculto">
-      <h1>Números manuscritos</h1>
-      <!-- Título de la aplicación -->
-      <div>
-        <p>Predicción de números del 0 al 9 escritos a mano utilizando redes neuronales convolucionales (CNN) con
-        dropout (DO) y aumento de datos (AD).</p>
-        <!-- Descripción de la funcionalidad de la aplicación -->
-      </div>
+  <!-- Contenido principal de la página -->
+  <div class="contenido-roles oculto">
+    <h1>Números manuscritos</h1>
+    <!-- Título de la aplicación -->
+    <div>
+      <p>Predicción de números del 0 al 9 escritos a mano utilizando redes neuronales convolucionales (CNN) con
+      dropout (DO) y aumento de datos (AD).</p>
+      <!-- Descripción de la funcionalidad de la aplicación -->
     </div>
+  </div>
 
-    <div class="contenido-roles oculto"></div> <!-- División vacía para separación visual -->
+  <div class="contenido-roles oculto"></div> <!-- División vacía para separación visual -->
 
-    <div class="container-flex contenido-roles oculto"> <!-- Contenedor para centrar lista y canvas horizontalmente -->
+  <!-- Contenedor para centrar la lista de resultados y el canvas horizontalmente -->
+  <div class="container-flex contenido-roles oculto"> 
+    <div>
       <div>
-        <div>
-          <div id="contenedor-canvas">
-            <div><i>Dibuja el número grande y centrado para tener una mejor predicción.</i></div>
-            <!-- Mensaje de instrucción para el usuario -->
-            <canvas id="grancanvas" width="200" height="200"></canvas>
-            <!-- Canvas grande para que el usuario dibuje el número -->
-            <canvas id="minicanvas" width="28" height="28" style="display: none"></canvas>
-            <!-- Canvas oculto de 28x28 píxeles para enviar a la red neuronal -->
-          </div>
-          <div class="button-container"> <!-- Contenedor para los botones -->
-            <button id="limpiar" onclick="limpiar()" class="btn"><b>Limpiar</b></button>
-            <!-- Botón para limpiar el dibujo del usuario -->
-            <button id="predecir" onclick="predecir()" class="btn"><b>Predecir</b></button>
-            <!-- Botón para limpiar el dibujo del usuario -->
-          </div>
+        <div id="contenedor-canvas">
+          <!-- Instrucciones para el usuario sobre cómo dibujar -->
+          <div><i>Dibuja el número grande y centrado para tener una mejor predicción.</i></div>
+          <!-- Canvas para el dibujo grande del número -->
+          <canvas id="grancanvas" width="200" height="200"></canvas>
+          <!-- Canvas oculto para enviar la imagen reducida a la red neuronal -->
+          <canvas id="minicanvas" width="28" height="28" style="display: none"></canvas>
         </div>
-      </div>
-      <div class="contenido-roles oculto">
-        <div>
-          <table>
-            <!-- Tabla para mostrar resultados de cada modelo -->
-            <thead>
-              <th>Modelo 1 (CNN)</th>
-              <th>Modelo 2 (CNN+DO)</th>
-              <th>Modelo 3 (CNN+AD)</th>
-              <th>Modelo 4 (CNN+DO+AD)</th>
-              <!-- Encabezados para cada modelo con sus características específicas -->
-            </thead>
-            <tbody>
-              <tr>
-                <!-- Fila para mostrar los resultados de predicción de cada modelo -->
-                <td>
-                  <div id="resultado" class="resultado"></div>
-                  <!-- Lugar para mostrar el resultado de predicción del Modelo 1 -->
-                </td>
-                <td>
-                  <div id="resultado2" class="resultado"></div>
-                  <!-- Resultado del Modelo 2 -->
-                </td>
-                <td>
-                  <div id="resultado3" class="resultado"></div>
-                  <!-- Resultado del Modelo 3 -->
-                </td>
-                <td>
-                  <div id="resultado4" class="resultado"></div>
-                  <!-- Resultado del Modelo 4 -->
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="button-container">
+          <!-- Contenedor de botones para limpiar y predecir -->
+          <button id="limpiar" onclick="limpiar()" class="btn"><b>Limpiar</b></button>
+          <!-- Botón para limpiar el dibujo en el canvas -->
+          <button id="predecir" onclick="predecir()" class="btn"><b>Predecir</b></button>
+          <!-- Botón para predecir el número dibujado -->
         </div>
       </div>
     </div>
-
-    <div class="contenido-roles oculto"></div> <!-- División vacía para separación visual -->
-
+    
+    <!-- Tabla para mostrar los resultados de las predicciones de cada modelo -->
     <div class="contenido-roles oculto">
       <div>
-        <h1>Sergio Sánchez Luque</h1>
-        <!-- Autor de la aplicación -->
+        <table>
+          <thead>
+            <th>Modelo 1 (CNN)</th>
+            <th>Modelo 2 (CNN+DO)</th>
+            <th>Modelo 3 (CNN+AD)</th>
+            <th>Modelo 4 (CNN+DO+AD)</th>
+          </thead>
+          <tbody>
+            <tr>
+              <!-- Fila para mostrar los resultados de las predicciones -->
+              <td>
+                <div id="resultado" class="resultado"></div>
+                <!-- Resultado del Modelo 1 -->
+              </td>
+              <td>
+                <div id="resultado2" class="resultado"></div>
+                <!-- Resultado del Modelo 2 -->
+              </td>
+              <td>
+                <div id="resultado3" class="resultado"></div>
+                <!-- Resultado del Modelo 3 -->
+              </td>
+              <td>
+                <div id="resultado4" class="resultado"></div>
+                <!-- Resultado del Modelo 4 -->
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
+  </div>
 
-    <div class="contenido-roles oculto"></div> <!-- División vacía para separación visual -->
-<!-- Contenedor para la Consola -->
-    <div id="consola" class="oculto">
-        <div id="datos-consola"></div>
+  <!-- Separación visual -->
+  <div class="contenido-roles oculto"></div>
+
+  <!-- Información del autor -->
+  <div class="contenido-roles oculto">
+    <div>
+      <h1>Sergio Sánchez Luque</h1>
+      <!-- Autor de la aplicación -->
     </div>
-  
-  </main>
+  </div>
 
-  <!-- Importación de librerías necesarias -->
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"></script>
-  <!-- Importa TensorFlow.js para el procesamiento del modelo de IA -->
-  <script src="fabric.min.js" /></script>
-  <!-- Importa Fabric.js para manejar el canvas y convertirlo en un área de dibujo -->
-  <script src="drawing.js"></script>
-  <!-- Archivo JavaScript personalizado con funciones adicionales para dibujar y predecir -->
-  <script src="script.js"></script>
-  <script src="login.js"></script>
-  <script src="consola.js"></script>
-  <script src="empleado.js"></script>
+  <div class="contenido-roles oculto"></div> <!-- División vacía para separación visual -->
+
+  <!-- Contenedor para la Consola -->
+  <div id="consola" class="oculto">
+    <div id="datos-consola"></div>
+  </div>
+
+</main>
+
+<!-- Importación de librerías necesarias -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"></script>
+<!-- Importa TensorFlow.js para el procesamiento del modelo de IA -->
+<script src="fabric.min.js"></script>
+<!-- Importa Fabric.js para manejar el canvas y convertirlo en un área de dibujo -->
+<script src="drawing.js"></script>
+<!-- Archivo JavaScript personalizado con funciones adicionales para dibujar y predecir -->
+<script src="script.js"></script>
+<script src="login.js"></script>
+<script src="consola.js"></script>
+<script src="empleado.js"></script>
 </body>
 
 </html>
