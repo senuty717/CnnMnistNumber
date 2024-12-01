@@ -1,4 +1,3 @@
-// Modificar la función para mostrar los top 3 de predicciones
 function mostrarDatosConsola(datos) {
   // Verificamos si el usuario es administrador basándonos en el rol directamente
   const rol = localStorage.getItem("rol"); // Suponiendo que se guarda el rol en localStorage
@@ -13,8 +12,8 @@ function mostrarDatosConsola(datos) {
   // Limpiamos los datos previos
   contenedorDatos.innerHTML = '';
 
-  // Verificar si 'datos' es un array válido antes de usar forEach
-  if (Array.isArray(datos) && datos.length > 0) {
+  // Si los datos son un array de resultados, los mostramos
+  if (Array.isArray(datos)) {
     datos.forEach(function(dato) {
       const p = document.createElement('p');
       
@@ -30,17 +29,26 @@ function mostrarDatosConsola(datos) {
       contenedorDatos.appendChild(p);
     });
   } else {
-    // Si los datos no son un array válido, mostramos un mensaje de error
+    // Si es solo un mensaje, lo mostramos
     const p = document.createElement('p');
-    p.textContent = 'No hay datos disponibles para mostrar.';
+    p.textContent = datos;
     contenedorDatos.appendChild(p);
   }
 }
 
 // Función para actualizar la consola con los resultados de las predicciones
 function actualizarConsola(predicciones) {
+  // Crear un array con los resultados de las predicciones para cada modelo
+  const datosConsola = predicciones.map((pred) => {
+    return {
+      indice: pred.indice,
+      tiempo: pred.tiempo,
+      modelo: pred.modelo  // Incluir el modelo
+    };
+  });
+
   // Llamar a la función que muestra los datos en consola
-  mostrarDatosConsola(predicciones);
+  mostrarDatosConsola(datosConsola);
 }
 
 // Escuchar el evento personalizado 'actualizarPredicciones'
