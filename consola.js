@@ -1,28 +1,25 @@
 function mostrarDatosConsola(datos) {
-  const rol = localStorage.getItem("rol"); // Suponiendo que se guarda el rol en localStorage
+  const rol = localStorage.getItem("rol");
 
   if (rol !== 'admin') {
     console.log("Acceso restringido a la consola.");
-    return;  // Si no es admin, no mostramos la consola
+    return; // Si no es admin, no mostramos la consola
   }
 
   const contenedorDatos = document.getElementById('datos-consola');
-  
+
   // Limpiamos los datos previos
   contenedorDatos.innerHTML = '';
 
-  // Verificar si 'datos' es un array válido antes de usar forEach
+  // Verificar que `datos` es un array válido
   if (Array.isArray(datos) && datos.length > 0) {
     datos.forEach(function(dato) {
       const p = document.createElement('p');
-
-      // Mostramos los top 3 predicciones
       let texto = `Modelo ${dato.modelo}: `;
       dato.topPredictions.forEach((prediction, index) => {
         texto += `Top ${index + 1} - Predicción: ${prediction.indice} (Probabilidad: ${prediction.valor.toFixed(2)}), `;
       });
 
-      // Mostrar el tiempo de la predicción
       if (typeof dato.tiempo === 'number' && !isNaN(dato.tiempo)) {
         dato.tiempo = dato.tiempo.toFixed(2) + ' ms';
       } else {
