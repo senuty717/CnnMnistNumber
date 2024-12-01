@@ -251,3 +251,28 @@ table th {
   background: linear-gradient(135deg, #9070d8, #573b8a); /* Invertir degradado */
 }
 
+/* Estilo específico para checkboxes dentro de la ventana emergente */
+#ventana-flotante .acertado-checkbox:checked {
+  accent-color: green; /* Check marcado en verde */
+}
+
+#ventana-flotante .acertado-checkbox {
+  accent-color: white; /* Check desmarcado en blanco */
+  background-color: black; /* Fondo negro para mayor visibilidad */
+  border: 2px solid white; /* Borde blanco para resaltar */
+  width: 18px; /* Ajustar el tamaño del checkbox */
+  height: 18px; /* Ajustar el tamaño del checkbox */
+}
+
+/* Estilo para las filas de la tabla dentro de la ventana emergente */
+#ventana-flotante table td {
+  background-color: #1e1e1e; /* Fondo gris oscuro */
+  color: white; /* Texto blanco */
+}
+
+#ventana-flotante table th {
+  background-color: #573b8a; /* Fondo del encabezado en morado degradado */
+  color: white; /* Texto blanco */
+}
+
+
