@@ -1,137 +1,80 @@
-// Simula una base de datos para almacenar los elementos de las predicciones
-let predicciones = [];
+// Variables globales para los botones
+const guardarBtn = document.getElementById("guardar-btn");
+const modificarBtn = document.getElementById("modificar-btn");
+const buscarBtn = document.getElementById("buscar-btn");
 
-// Función para agregar un nuevo elemento (simulación de "Dar de Alta")
-function darDeAlta() {
-  const nuevoModelo = document.getElementById("nuevo-modelo").value;
-  if (nuevoModelo) {
-    const nuevoId = predicciones.length + 1;
-    const nuevoElemento = {
-      id: nuevoId,
-      modelo: nuevoModelo,
-      prediccion: 'Pendiente',
-      acertada: 'No',
-    };
-    predicciones.push(nuevoElemento);
-    actualizarTabla();
-    document.getElementById("nuevo-modelo").value = ''; // Limpiar el campo
-  } else {
-    alert("Por favor, ingresa un nuevo modelo.");
+// Elementos de formularios
+const formularioBuscar = document.getElementById("form-buscar");
+const formularioGuardar = document.getElementById("form-guardar");
+const formularioModificar = document.getElementById("form-modificar");
+
+// Elementos de la tabla
+const tablaResultado = document.getElementById("resultado-lista").getElementsByTagName('tbody')[0];
+
+// Función para guardar un nuevo elemento
+function guardarElemento() {
+  const nuevoModelo = document.getElementById("nuevo-modelo").value.trim();
+
+  if (nuevoModelo === "") {
+    alert("Por favor, ingresa el nombre del modelo.");
+    return;
   }
+
+  // Simulamos la creación del nuevo modelo (aquí se haría una llamada a la base de datos o API)
+  alert(`Modelo "${nuevoModelo}" guardado correctamente.`);
+  document.getElementById("nuevo-modelo").value = ""; // Limpiar el campo de entrada
 }
 
-// Función para modificar un elemento existente (simulación de "Modificar Elemento")
+// Función para modificar un elemento
 function modificarElemento() {
-  const modificarId = document.getElementById("modificar-id").value;
-  const nuevoValor = document.getElementById("nuevo-valor").value;
+  const idModificar = document.getElementById("modificar-id").value.trim();
+  const nuevoValor = document.getElementById("nuevo-valor").value.trim();
 
-  if (modificarId && nuevoValor) {
-    const elemento = predicciones.find(item => item.id === parseInt(modificarId));
-    if (elemento) {
-      elemento.modelo = nuevoValor;
-      actualizarTabla();
-      document.getElementById("modificar-id").value = '';
-      document.getElementById("nuevo-valor").value = '';
-    } else {
-      alert("Elemento no encontrado.");
-    }
-  } else {
-    alert("Por favor, ingresa un ID válido y el nuevo valor.");
+  if (idModificar === "" || nuevoValor === "") {
+    alert("Por favor, ingresa el ID y el nuevo valor.");
+    return;
   }
+
+  // Simulamos la modificación del elemento (aquí se haría una llamada a la base de datos o API)
+  alert(`Elemento con ID ${idModificar} modificado. Nuevo valor: ${nuevoValor}`);
+  document.getElementById("modificar-id").value = ""; // Limpiar el campo de entrada
+  document.getElementById("nuevo-valor").value = ""; // Limpiar el campo de entrada
 }
 
-// Función para eliminar un elemento (simulación de "Dar de Baja")
-function darDeBaja() {
-  const bajaId = document.getElementById("baja-id").value;
-  if (bajaId) {
-    predicciones = predicciones.filter(item => item.id !== parseInt(bajaId));
-    actualizarTabla();
-    document.getElementById("baja-id").value = '';
-  } else {
-    alert("Por favor, ingresa un ID válido.");
-  }
-}
-
-// Función para buscar un elemento por ID (simulación de "Buscar Elemento")
+// Función para buscar un elemento
 function buscarElemento() {
-  const buscarId = document.getElementById("buscar-id").value;
-  const resultadoBuscar = document.getElementById("resultado-buscar");
+  const idBuscar = document.getElementById("buscar-id").value.trim();
 
-  if (buscarId) {
-    const elemento = predicciones.find(item => item.id === parseInt(buscarId));
-    if (elemento) {
-      resultadoBuscar.innerHTML = `ID: ${elemento.id}, Modelo: ${elemento.modelo}, Predicción: ${elemento.prediccion}, Acertada: ${elemento.acertada}`;
-    } else {
-      resultadoBuscar.innerHTML = "Elemento no encontrado.";
-    }
-  } else {
-    resultadoBuscar.innerHTML = "Por favor, ingresa un ID válido.";
+  // Limpiar los resultados previos
+  const resultadoBuscarDiv = document.getElementById("resultado-buscar");
+  resultadoBuscarDiv.innerHTML = "";
+
+  if (idBuscar === "") {
+    resultadoBuscarDiv.textContent = "Por favor, ingresa un ID para buscar.";
+    return;
   }
-}
 
-// Función para listar todos los elementos en la tabla
-function listarElementos() {
-  actualizarTabla();
-}
+  // Simulamos la búsqueda del elemento (aquí se haría una llamada a la base de datos o API)
+  const elementoEncontrado = { id: idBuscar, modelo: 'Modelo 1 (CNN)', prediccion: '3', acertada: true };
 
-// Función para actualizar la tabla con los datos actuales
-function actualizarTabla() {
-  const tablaCuerpo = document.getElementById("resultado-lista").getElementsByTagName('tbody')[0];
-  tablaCuerpo.innerHTML = ''; // Limpiar la tabla antes de actualizar
-
-  predicciones.forEach(item => {
-    const fila = tablaCuerpo.insertRow();
-    fila.innerHTML = `
-      <td>${item.id}</td>
-      <td>${item.modelo}</td>
-      <td>${item.prediccion}</td>
-      <td>${item.acertada}</td>
-      <td><button onclick="modificarFila(${item.id})">Modificar</button></td>
+  // Mostramos el resultado de la búsqueda
+  if (elementoEncontrado) {
+    resultadoBuscarDiv.innerHTML = `
+      <p>ID: ${elementoEncontrado.id}</p>
+      <p>Modelo: ${elementoEncontrado.modelo}</p>
+      <p>Predicción: ${elementoEncontrado.prediccion}</p>
+      <p>Acertada: ${elementoEncontrado.acertada ? "Sí" : "No"}</p>
     `;
-  });
-}
-
-// Función para manejar la modificación en la fila de la tabla
-function modificarFila(id) {
-  const elemento = predicciones.find(item => item.id === id);
-  if (elemento) {
-    const nuevoValor = prompt("Introduce el nuevo valor para el modelo:", elemento.modelo);
-    if (nuevoValor) {
-      elemento.modelo = nuevoValor;
-      actualizarTabla();
-    }
+  } else {
+    resultadoBuscarDiv.textContent = "Elemento no encontrado.";
   }
 }
 
-// Función para predicción y guardar el resultado en la tabla
-function predecir() {
-  // En este ejemplo, se simulan los resultados con un conjunto de datos ficticios
-  const resultado = [
-    { modelo: "Modelo 1", prediccion: "5", acertada: "Sí" },
-    { modelo: "Modelo 2", prediccion: "3", acertada: "No" },
-    { modelo: "Modelo 3", prediccion: "7", acertada: "Sí" },
-    { modelo: "Modelo 4", prediccion: "1", acertada: "No" }
-  ];
+// Evento para el botón Guardar
+guardarBtn.addEventListener("click", guardarElemento);
 
-  // Guardar los resultados en la "base de datos"
-  resultado.forEach((item, index) => {
-    predicciones.push({
-      id: predicciones.length + 1,
-      modelo: item.modelo,
-      prediccion: item.prediccion,
-      acertada: item.acertada,
-    });
-  });
+// Evento para el botón Modificar
+modificarBtn.addEventListener("click", modificarElemento);
 
-  actualizarTabla();
-}
-
-// Asignación de eventos a los botones
-document.getElementById("listar-btn").addEventListener("click", listarElementos);
-document.getElementById("buscar-btn").addEventListener("click", buscarElemento);
-document.getElementById("dar-alta-btn").addEventListener("click", darDeAlta);
-document.getElementById("modificar-btn").addEventListener("click", modificarElemento);
-document.getElementById("baja-btn").addEventListener("click", darDeBaja);
-
-// También puedes agregar el botón para predecir
-document.getElementById("predecir").addEventListener("click", predecir);
+// Evento para el botón Buscar
+buscarBtn.addEventListener("click", buscarElemento);
