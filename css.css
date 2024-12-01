@@ -263,6 +263,8 @@ table th {
   position: relative;
   cursor: pointer; /* Cambiar el cursor al pasar sobre el checkbox */
   transition: background-color 0.3s, border-color 0.3s; /* Transición suave para el cambio de fondo y borde */
+  background-color: green; /* Fondo verde cuando está marcado */
+  border-color: green; /* Borde verde cuando está marcado */
 }
 
 /* Estilo cuando el checkbox está marcado */
@@ -282,6 +284,8 @@ table th {
   border: solid white; /* Borde blanco para el "tick" */
   border-width: 0 3px 3px 0; /* Crear el "tick" */
   transform: rotate(45deg); /* Rotar para formar el "tick" */
+  background-color: green; /* Fondo verde cuando está marcado */
+  border-color: green; /* Borde verde cuando está marcado */
 }
 
 /* Estilo de checkbox no marcado */
