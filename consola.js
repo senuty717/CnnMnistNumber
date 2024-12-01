@@ -13,36 +13,26 @@ function mostrarDatosConsola(datos) {
   // Limpiamos los datos previos
   contenedorDatos.innerHTML = '';
 
-  // Si los datos son un array de resultados, los mostramos
-  if (Array.isArray(datos)) {
+  // Verificar si 'datos' es un array válido antes de usar forEach
+  if (Array.isArray(datos) && datos.length > 0) {
     datos.forEach(function(dato) {
       const p = document.createElement('p');
-
-      // Formateamos el tiempo si es válido
+      
+      // Verificar que `dato` tiene tiempo y asegurarnos que sea un número
       if (typeof dato.tiempo === 'number' && !isNaN(dato.tiempo)) {
+        // Formateamos el tiempo si es válido
         dato.tiempo = dato.tiempo.toFixed(2) + ' ms';
       } else {
         dato.tiempo = 'Tiempo no disponible';
       }
-
-      // Mostrar el modelo, los top 3 y el tiempo
-      p.textContent = `Modelo ${dato.modelo}: Tiempo: ${dato.tiempo}`;
       
-      // Mostrar el top 3 de predicciones para cada modelo
-      const top3Container = document.createElement('ul');
-      dato.top3.forEach((pred) => {
-        const li = document.createElement('li');
-        li.textContent = `Predicción: ${pred.indice} - Probabilidad: ${(pred.valor * 100).toFixed(2)}%`;
-        top3Container.appendChild(li);
-      });
-      p.appendChild(top3Container);
-
+      p.textContent = `Modelo ${dato.modelo}: Predicción ${dato.indice}, Tiempo: ${dato.tiempo}`;
       contenedorDatos.appendChild(p);
     });
   } else {
-    // Si es solo un mensaje, lo mostramos
+    // Si los datos no son un array válido, mostramos un mensaje de error
     const p = document.createElement('p');
-    p.textContent = datos;
+    p.textContent = 'No hay datos disponibles para mostrar.';
     contenedorDatos.appendChild(p);
   }
 }
