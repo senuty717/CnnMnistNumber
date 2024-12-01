@@ -35,6 +35,17 @@ async function generarHash(contraseña) {
   return hashHex;
 }
 
+// Función para mostrar datos en la consola (para el rol admin)
+function mostrarDatosConsola(datos) {
+  const consola = document.getElementById('consola');
+  consola.innerHTML = ""; // Limpiar consola antes de agregar nuevos datos
+  datos.forEach(dato => {
+    const linea = document.createElement("p");
+    linea.textContent = dato; // Agregar cada línea de datos
+    consola.appendChild(linea);
+  });
+}
+
 // Función para mostrar el contenido basado en el rol
 function mostrarContenido(rol) {
   // Ocultar todo el contenido de roles
@@ -48,7 +59,7 @@ function mostrarContenido(rol) {
       adminContent.classList.remove("oculto");
       // Guardar el rol en localStorage
       localStorage.setItem("rol", "admin");
-      mostrarDatosConsola([  // Mostrar la consola después de iniciar sesión como admin
+      mostrarDatosConsola([ // Mostrar la consola después de iniciar sesión como admin
         "Modelo 1: Predicción correcta",
         "Modelo 2: Predicción incorrecta",
         "Modelo 3: Predicción correcta",
@@ -69,7 +80,7 @@ function mostrarContenido(rol) {
 
   // Eliminar la clase 'oculto' de todos los elementos con la clase 'contenido-roles'
   const contenidosRoles = document.querySelectorAll('.contenido-roles');
-  contenidosRoles.forEach(function(contenido) {
+  contenidosRoles.forEach(function (contenido) {
     contenido.classList.remove("oculto");
   });
 
@@ -81,7 +92,7 @@ function mostrarContenido(rol) {
 }
 
 // Función para manejar el evento de inicio de sesión
-form.addEventListener("submit", async function(event) {
+form.addEventListener("submit", async function (event) {
   event.preventDefault(); // Prevenir el envío del formulario
 
   const username = document.getElementById("username").value;
