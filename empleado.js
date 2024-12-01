@@ -107,7 +107,7 @@ document.getElementById('listar-btn').addEventListener('click', function() {
         <td>${index + 1}-${subIndex + 1}</td>
         <td>${resultado.prediccion}</td>
         <td>Modelo ${resultado.modelo}</td>
-        <td><input type="checkbox" disabled ${resultado.acertado ? "checked" : ""}></td>
+        <td><input type="checkbox" ${resultado.acertado ? "checked" : ""}></td>
       `;
       tbody.appendChild(fila);
     });
