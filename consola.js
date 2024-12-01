@@ -16,10 +16,17 @@ function mostrarDatosConsola(datos) {
     datos.forEach(function(dato) {
       const p = document.createElement('p');
       let texto = `Modelo ${dato.modelo}: `;
-      dato.topPredictions.forEach((prediction, index) => {
-        texto += `Top ${index + 1} - Predicción: ${prediction.indice} (Probabilidad: ${prediction.valor.toFixed(2)}), `;
-      });
 
+      // Verificar que `topPredictions` es un array y tiene elementos
+      if (Array.isArray(dato.topPredicciones) && dato.topPredicciones.length > 0) {
+        dato.topPredicciones.forEach((prediction, index) => {
+          texto += `Top ${index + 1} - Predicción: ${prediction.indice} (Probabilidad: ${prediction.probabilidad.toFixed(2)}), `;
+        });
+      } else {
+        texto += 'No hay predicciones válidas.';
+      }
+
+      // Formatear el tiempo si es un número válido
       if (typeof dato.tiempo === 'number' && !isNaN(dato.tiempo)) {
         dato.tiempo = dato.tiempo.toFixed(2) + ' ms';
       } else {
