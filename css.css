@@ -252,16 +252,36 @@ table th {
 }
 
 /* Estilo específico para checkboxes dentro de la ventana emergente */
-#ventana-flotante .acertado-checkbox:checked {
-  accent-color: green; /* Check marcado en verde */
-}
-
 #ventana-flotante .acertado-checkbox {
-  accent-color: white; /* Check desmarcado en blanco */
-  background-color: black; /* Fondo negro para mayor visibilidad */
-  border: 2px solid white; /* Borde blanco para resaltar */
+  -webkit-appearance: none; /* Eliminar el estilo predeterminado del checkbox */
+  appearance: none; /* Eliminar el estilo predeterminado del checkbox */
   width: 18px; /* Ajustar el tamaño del checkbox */
   height: 18px; /* Ajustar el tamaño del checkbox */
+  background-color: black; /* Fondo negro para mayor visibilidad */
+  border: 2px solid white; /* Borde blanco para resaltar */
+  border-radius: 4px; /* Bordes redondeados */
+  position: relative;
+  cursor: pointer; /* Cambiar el cursor al pasar sobre el checkbox */
+  transition: background-color 0.3s, border-color 0.3s; /* Transición suave para el cambio de fondo y borde */
+}
+
+/* Estilo cuando el checkbox está marcado */
+#ventana-flotante .acertado-checkbox:checked {
+  background-color: green; /* Fondo verde cuando está marcado */
+  border-color: green; /* Borde verde cuando está marcado */
+}
+
+/* Pseudo-elemento para crear el "tick" dentro del checkbox */
+#ventana-flotante .acertado-checkbox:checked::after {
+  content: ''; /* Crear contenido vacío */
+  position: absolute;
+  top: 2px; /* Ajustar la posición del "tick" */
+  left: 5px; /* Ajustar la posición del "tick" */
+  width: 6px; /* Tamaño del "tick" */
+  height: 10px; /* Tamaño del "tick" */
+  border: solid white; /* Borde blanco para el "tick" */
+  border-width: 0 2px 2px 0; /* Crear el "tick" */
+  transform: rotate(45deg); /* Rotar para formar el "tick" */
 }
 
 /* Estilo para las filas de la tabla dentro de la ventana emergente */
