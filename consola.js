@@ -17,15 +17,21 @@ function mostrarDatosConsola(datos) {
     datos.forEach(function(dato) {
       const p = document.createElement('p');
       
-      // Verificar que `dato` tiene tiempo y asegurarnos que sea un número
+      // Verificar que dato tiene tiempo y asegurarnos que sea un número
       if (typeof dato.tiempo === 'number' && !isNaN(dato.tiempo)) {
         // Formateamos el tiempo si es válido
         dato.tiempo = dato.tiempo.toFixed(2) + ' ms';
       } else {
         dato.tiempo = 'Tiempo no disponible';
       }
-      
-      p.textContent = `Modelo ${dato.modelo}: Predicción ${dato.indice}, Tiempo: ${dato.tiempo}`;
+
+      // Mostrar top 3 con sus predicciones y porcentajes
+      p.textContent = `Modelo ${dato.modelo}: Predicción ${dato.topPredicciones[0].indice}, 
+                       Tiempo: ${dato.tiempo}, 
+                       Top 3 Predicciones: 
+                       1) ${dato.topPredicciones[0].indice} (${(dato.topPredicciones[0].probabilidad * 100).toFixed(2)}%) 
+                       2) ${dato.topPredicciones[1].indice} (${(dato.topPredicciones[1].probabilidad * 100).toFixed(2)}%) 
+                       3) ${dato.topPredicciones[2].indice} (${(dato.topPredicciones[2].probabilidad * 100).toFixed(2)}%)`;
       contenedorDatos.appendChild(p);
     });
   } else {
@@ -40,10 +46,17 @@ function mostrarDatosConsola(datos) {
 function actualizarConsola(predicciones) {
   // Crear un array con los resultados de las predicciones para cada modelo
   const datosConsola = predicciones.map((pred) => {
+    // Obtener las tres predicciones con mayor probabilidad para cada modelo
+    const topPredicciones = pred.resultados
+      .map((probabilidad, indice) => ({ indice, probabilidad }))
+      .sort((a, b) => b.probabilidad - a.probabilidad) // Ordenar por probabilidad descendente
+      .slice(0, 3); // Tomar solo las 3 principales
+
     return {
       indice: pred.indice,
       tiempo: pred.tiempo,
-      modelo: pred.modelo  // Incluir el modelo
+      modelo: pred.modelo,
+      topPredicciones: topPredicciones // Incluir el top 3 de predicciones
     };
   });
 
