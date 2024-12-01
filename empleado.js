@@ -1,10 +1,10 @@
-// Asegurarnos de que los datos existan en localStorage o inicializarlo con algunos datos de ejemplo
+// Aseguramos que los datos estén inicializados en localStorage si es necesario
 if (!localStorage.getItem('predicciones')) {
   const datosIniciales = [
-    { id: 1, modelo: 'CNN', prediccion: 5, acertada: false },
-    { id: 2, modelo: 'CNN+DO', prediccion: 3, acertada: false },
-    { id: 3, modelo: 'CNN+AD', prediccion: 9, acertada: false },
-    { id: 4, modelo: 'CNN+LSTM', prediccion: 7, acertada: false }
+    { id: 1, modelo: 'CNN', prediccion: null, acertada: false },
+    { id: 2, modelo: 'CNN+DO', prediccion: null, acertada: false },
+    { id: 3, modelo: 'CNN+AD', prediccion: null, acertada: false },
+    { id: 4, modelo: 'CNN+DO+AD', prediccion: null, acertada: false }
   ];
   localStorage.setItem('predicciones', JSON.stringify(datosIniciales));
 }
@@ -28,7 +28,7 @@ function cargarDatos() {
     const fila = document.createElement('tr');
     fila.innerHTML = `
       <td>${dato.modelo}</td>
-      <td>${dato.prediccion}</td>
+      <td>${dato.prediccion !== null ? dato.prediccion : 'No predicha'}</td>
       <td>${dato.acertada ? 'Acertada' : 'No Acertada'}</td>
       <td>
         <button onclick="modificarDato(${dato.id})">Modificar</button>
@@ -42,6 +42,24 @@ function cargarDatos() {
 document.getElementById('listar-btn').addEventListener('click', function() {
   cargarDatos();  // Mostrar la lista de modelos
 });
+
+// Función para realizar la predicción (esto puede depender de tu lógica)
+function predecir() {
+  const predicciones = JSON.parse(localStorage.getItem('predicciones'));
+
+  // Asumimos que aquí hay un modelo que hace la predicción
+  const nuevaPrediccion = Math.floor(Math.random() * 10);  // Ejemplo de predicción aleatoria
+
+  // Actualizar las predicciones de los modelos
+  predicciones.forEach(dato => {
+    if (dato.prediccion === null) {
+      dato.prediccion = nuevaPrediccion;  // Asignar una nueva predicción si aún no existe
+    }
+  });
+
+  localStorage.setItem('predicciones', JSON.stringify(predicciones));
+  cargarDatos();  // Recargar la tabla con los datos actualizados
+}
 
 // Función para modificar la predicción de un modelo
 function modificarDato(id) {
@@ -60,15 +78,15 @@ function modificarDato(id) {
   }
 }
 
-// Esta función se llamará después de iniciar sesión correctamente
+// Función para mostrar la sección del empleado tras iniciar sesión
+function mostrarEmpleado() {
+  document.getElementById('login-form').classList.add('oculto');
+  document.getElementById('empleado-content').classList.remove('oculto');
+}
+
+// Función para establecer el rol tras iniciar sesión correctamente
 function setRole(role) {
   if (role === 'employee') {
     mostrarEmpleado();
   }
-}
-
-// Mostrar la sección del empleado tras iniciar sesión
-function mostrarEmpleado() {
-  document.getElementById('login-form').classList.add('oculto');
-  document.getElementById('empleado-content').classList.remove('oculto');
 }
