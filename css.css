@@ -255,8 +255,8 @@ table th {
 #ventana-flotante .acertado-checkbox {
   -webkit-appearance: none; /* Eliminar el estilo predeterminado del checkbox */
   appearance: none; /* Eliminar el estilo predeterminado del checkbox */
-  width: 18px; /* Ajustar el tamaño del checkbox */
-  height: 18px; /* Ajustar el tamaño del checkbox */
+  width: 20px; /* Ajustar el tamaño del checkbox */
+  height: 20px; /* Ajustar el tamaño del checkbox */
   background-color: black; /* Fondo negro para mayor visibilidad */
   border: 2px solid white; /* Borde blanco para resaltar */
   border-radius: 4px; /* Bordes redondeados */
@@ -282,6 +282,12 @@ table th {
   border: solid white; /* Borde blanco para el "tick" */
   border-width: 0 2px 2px 0; /* Crear el "tick" */
   transform: rotate(45deg); /* Rotar para formar el "tick" */
+}
+
+/* Opcionalmente, puedes añadir un estilo al checkbox no marcado */
+#ventana-flotante .acertado-checkbox:not(:checked) {
+  background-color: white; /* Fondo blanco cuando no está marcado */
+  border-color: white; /* Borde blanco cuando no está marcado */
 }
 
 /* Estilo para las filas de la tabla dentro de la ventana emergente */
