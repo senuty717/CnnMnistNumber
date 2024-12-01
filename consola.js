@@ -26,7 +26,7 @@ function mostrarDatosConsola(datos) {
       }
 
       // Asegurarnos de que topPredicciones existe y tiene al menos 3 elementos
-      if (Array.isArray(dato.topPredicciones) && dato.topPredicciones.length >= 3) {
+      if (Array.isArray(dato.topPredicciones) && dato.topPredicciones.length >= 3 && dato.topPredicciones.every(p => p.probabilidad && p.indice !== undefined)) {
         // Mostrar el Top 3
         p.textContent = `Modelo ${dato.modelo}: Predicción ${dato.topPredicciones[0].indice}, 
                          Tiempo: ${dato.tiempo}, 
@@ -35,9 +35,9 @@ function mostrarDatosConsola(datos) {
                          2) ${dato.topPredicciones[1].indice} (${(dato.topPredicciones[1].probabilidad * 100).toFixed(2)}%) 
                          3) ${dato.topPredicciones[2].indice} (${(dato.topPredicciones[2].probabilidad * 100).toFixed(2)}%)`;
       } else {
-        // Si no hay un Top 3 válido, mostrar un mensaje de error
+        // Si no hay un Top 3 válido, mostrar un mensaje más informativo
         p.textContent = `Modelo ${dato.modelo}: Predicción no disponible, Tiempo: ${dato.tiempo}, 
-                         Top 3 Predicciones no válidas`;
+                         No se pudieron obtener predicciones válidas.`;
       }
       contenedorDatos.appendChild(p);
     });
@@ -48,41 +48,3 @@ function mostrarDatosConsola(datos) {
     contenedorDatos.appendChild(p);
   }
 }
-
-// Función para actualizar la consola con los resultados de las predicciones
-function actualizarConsola(predicciones) {
-  // Crear un array con los resultados de las predicciones para cada modelo
-  const datosConsola = predicciones.map((pred) => {
-    // Asegurarnos de que 'resultados' sea un array
-    if (!Array.isArray(pred.resultados)) {
-      return {
-        indice: pred.indice,
-        tiempo: pred.tiempo,
-        modelo: pred.modelo,
-        topPredicciones: []  // No tiene resultados válidos
-      };
-    }
-
-    // Obtener las tres predicciones con mayor probabilidad para cada modelo
-    const topPredicciones = pred.resultados
-      .map((probabilidad, indice) => ({ indice, probabilidad }))
-      .sort((a, b) => b.probabilidad - a.probabilidad) // Ordenar por probabilidad descendente
-      .slice(0, 3); // Tomar solo las 3 principales
-
-    return {
-      indice: pred.indice,
-      tiempo: pred.tiempo,
-      modelo: pred.modelo,
-      topPredicciones: topPredicciones // Incluir el top 3 de predicciones
-    };
-  });
-
-  // Llamar a la función que muestra los datos en consola
-  mostrarDatosConsola(datosConsola);
-}
-
-// Escuchar el evento personalizado 'actualizarPredicciones'
-document.addEventListener('actualizarPredicciones', function(event) {
-  const predicciones = event.detail;  // Datos de las predicciones pasados en el evento
-  actualizarConsola(predicciones);
-});
