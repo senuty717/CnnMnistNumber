@@ -19,7 +19,7 @@
 <body>
 <main class="main"> <!-- La clase main para que se apliquen estilos -->
   <div id="login-form">
-    <h2>Iniciar Sesión 1</h2>
+    <h2>Iniciar Sesión</h2>
     <form id="formulario-login">
       <label for="username">Usuario:</label>
       <input type="text" id="username" placeholder="Ingresa tu usuario" required />
@@ -47,25 +47,24 @@
  <div id="empleado-content" class="oculto">
   <h2>Bienvenido Empleado</h2>
 
-  <!-- Botones de acción -->
-  <button id="predecir">Predecir</button>
-  <button id="guardar-btn">Guardar</button>
-  <button id="listar-btn" onclick="listarElementos()">Listar Resultados</button>
+  <!-- Botones -->
+<button id="guardar-btn">Guardar</button>
+<button id="listar-btn">Listar Resultados</button>
 
-  <!-- Tabla para mostrar los resultados -->
-  <table id="resultado-lista">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Modelo</th>
-        <th>Predicción</th>
-        <th>Acertada</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Las filas se llenarán dinámicamente con JavaScript -->
-    </tbody>
-  </table>
+<!-- Tabla de resultados -->
+<table id="resultado-lista">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Modelo</th>
+      <th>Predicción</th>
+      <th>Acertada</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Aquí se llenarán los resultados -->
+  </tbody>
+</table>
 </div>
 
   <div id="cliente-content" class="oculto">
