@@ -3,9 +3,7 @@ let resultadosGuardados = []; // Para almacenar los resultados guardados
 let idContador = 1; // Para crear un ID único por cada resultado
 
 const guardarBtn = document.getElementById("guardar-btn");
-const buscarBtn = document.getElementById("buscar-btn");
-
-const formularioBuscar = document.getElementById("form-buscar");
+const listarBtn = document.getElementById("listar-btn");
 
 // Elementos de la tabla
 const tablaResultado = document.getElementById("resultado-lista").getElementsByTagName('tbody')[0];
@@ -31,7 +29,6 @@ function predecir() {
       <td>${resultado.modelo}</td>
       <td>${resultado.prediccion}</td>
       <td><input type="checkbox" ${resultado.acertada ? "checked" : ""} onclick="modificarAcertada(${idContador - 1})"></td>
-      <td><button onclick="modificarFila(${idContador - 1})">Modificar</button></td>
     `;
     tablaResultado.appendChild(fila);
     
@@ -60,35 +57,6 @@ function guardarElemento() {
   alert('Los resultados han sido guardados.');
 }
 
-// Función para buscar un intento por ID
-function buscarElemento() {
-  const idBuscar = document.getElementById("buscar-id").value.trim();
-
-  // Limpiar los resultados previos
-  const resultadoBuscarDiv = document.getElementById("resultado-buscar");
-  resultadoBuscarDiv.innerHTML = "";
-
-  if (idBuscar === "") {
-    resultadoBuscarDiv.textContent = "Por favor, ingresa un ID para buscar.";
-    return;
-  }
-
-  // Buscar el resultado
-  const resultadoEncontrado = resultadosGuardados.find(r => r.id === parseInt(idBuscar));
-
-  // Mostrar el resultado de la búsqueda
-  if (resultadoEncontrado) {
-    resultadoBuscarDiv.innerHTML = `
-      <p>ID: ${resultadoEncontrado.id}</p>
-      <p>Modelo: ${resultadoEncontrado.modelo}</p>
-      <p>Predicción: ${resultadoEncontrado.prediccion}</p>
-      <p>Acertada: ${resultadoEncontrado.acertada ? "Sí" : "No"}</p>
-    `;
-  } else {
-    resultadoBuscarDiv.textContent = "Elemento no encontrado.";
-  }
-}
-
 // Función para listar todos los resultados guardados
 function listarElementos() {
   // Limpiar los resultados previos
@@ -101,7 +69,6 @@ function listarElementos() {
       <td>${resultado.modelo}</td>
       <td>${resultado.prediccion}</td>
       <td><input type="checkbox" ${resultado.acertada ? "checked" : ""} disabled></td>
-      <td><button onclick="modificarFila(${resultado.id})">Modificar</button></td>
     `;
     tablaResultado.appendChild(fila);
   });
@@ -109,7 +76,7 @@ function listarElementos() {
 
 // Event listeners para los botones
 guardarBtn.addEventListener("click", guardarElemento);
-buscarBtn.addEventListener("click", buscarElemento);
+listarBtn.addEventListener("click", listarElementos);
 
 // Evento para predecir
 document.getElementById("predecir").addEventListener("click", predecir);
