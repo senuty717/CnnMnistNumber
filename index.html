@@ -44,53 +44,47 @@
   </div>
 
   <!-- Sección del empleado -->
-  <div id="empleado-content" class="oculto">
-    <h2>Bienvenido Empleado</h2>
-    <button id="listar-btn">Listar Elementos</button>
-    <button id="buscar-btn">Buscar Elemento</button>
-    <button id="dar-alta-btn">Dar de Alta</button>
-    <button id="modificar-btn">Modificar Elemento</button>
-    <button id="baja-btn">Dar de Baja</button>
+ <div id="empleado-content" class="oculto">
+  <h2>Bienvenido Empleado</h2>
 
-    <!-- Tabla para mostrar las predicciones de los modelos -->
-    <table id="resultado-lista">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Modelo</th>
-          <th>Predicción</th>
-          <th>Acertada</th>
-          <th>Modificar</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Las filas se llenarán dinámicamente con JavaScript -->
-      </tbody>
-    </table>
+  <!-- Botones de acción -->
+  <button id="guardar-btn">Guardar</button>
+  <button id="modificar-btn">Modificar</button>
+  <button id="buscar-btn">Buscar</button>
 
-    <!-- Formularios para las otras operaciones -->
-    <div id="form-buscar" class="oculto">
-      <input type="text" id="buscar-id" placeholder="ID a buscar" />
-      <button id="buscar-id-btn">Buscar</button>
-      <div id="resultado-buscar"></div>
-    </div>
-
-    <div id="form-dar-alta" class="oculto">
-      <input type="text" id="nuevo-modelo" placeholder="Nuevo Modelo" />
-      <button id="dar-alta-btn">Dar de Alta</button>
-    </div>
-
-    <div id="form-modificar" class="oculto">
-      <input type="text" id="modificar-id" placeholder="ID a modificar" />
-      <input type="text" id="nuevo-valor" placeholder="Nuevo valor" />
-      <button id="modificar-id-btn">Modificar</button>
-    </div>
-
-    <div id="form-baja" class="oculto">
-      <input type="text" id="baja-id" placeholder="ID a eliminar" />
-      <button id="baja-id-btn">Eliminar</button>
-    </div>
+  <!-- Formularios para las acciones -->
+  <div id="form-guardar">
+    <input type="text" id="nuevo-modelo" placeholder="Nuevo Modelo" />
+    <button id="guardar-btn">Guardar</button>
   </div>
+
+  <div id="form-modificar" class="oculto">
+    <input type="text" id="modificar-id" placeholder="ID a modificar" />
+    <input type="text" id="nuevo-valor" placeholder="Nuevo valor" />
+    <button id="modificar-btn">Modificar</button>
+  </div>
+
+  <div id="form-buscar" class="oculto">
+    <input type="text" id="buscar-id" placeholder="ID a buscar" />
+    <button id="buscar-btn">Buscar</button>
+    <div id="resultado-buscar"></div>
+  </div>
+
+  <!-- Tabla para mostrar los resultados -->
+  <table id="resultado-lista">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Modelo</th>
+        <th>Predicción</th>
+        <th>Acertada</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Las filas se llenarán dinámicamente con JavaScript -->
+    </tbody>
+  </table>
+</div>
 
   <div id="cliente-content" class="oculto">
     <h2>Bienvenido Cliente</h2>
