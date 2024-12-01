@@ -221,14 +221,33 @@ table th {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 1000; /* Asegurar que esté por encima de otros elementos */
 }
 
 .ventana-contenido {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  width: 80%;
-  max-width: 600px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  background: white; /* Fondo blanco */
+  padding: 20px; /* Relleno interno */
+  border-radius: 8px; /* Bordes redondeados */
+  width: 80%; /* Ancho relativo al viewport */
+  max-width: 600px; /* Ancho máximo */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra alrededor */
+  text-align: center; /* Centrar texto */
 }
+
+/* Estilo del botón de cierre */
+#cerrar-ventana {
+  background: linear-gradient(135deg, #573b8a, #9070d8); /* Degradado */
+  color: white; /* Texto blanco */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  padding: 10px 20px; /* Tamaño del botón */
+  margin-top: 20px; /* Separación superior */
+  cursor: pointer; /* Manito al pasar */
+  transition: transform 0.2s, background 0.3s; /* Suavizado en hover */
+}
+
+#cerrar-ventana:hover {
+  transform: scale(1.05); /* Ampliar ligeramente */
+  background: linear-gradient(135deg, #9070d8, #573b8a); /* Invertir degradado */
+}
+
