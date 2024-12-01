@@ -98,108 +98,108 @@ th {
 
 /* Ocultar elementos al principio */
 .oculto {
-  display: none;
+  display: none; /* No mostrar elementos con la clase "oculto" */
 }
 
 /* Estilo para los inputs y botón dentro del formulario de login */
 #login-form input {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  width: 100%; /* Ancho completo de los inputs */
+  padding: 10px; /* Espacio dentro de los inputs */
+  margin: 10px 0; /* Espacio entre inputs */
+  border: 1px solid #ccc; /* Borde gris claro */
+  border-radius: 4px; /* Bordes redondeados */
 }
 
 #login-form button {
-  width: 100%;
-  padding: 10px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  width: 100%; /* Ancho completo del botón */
+  padding: 10px; /* Espacio dentro del botón */
+  background-color: #4CAF50; /* Color de fondo verde */
+  color: white; /* Texto blanco */
+  border: none; /* Sin borde */
+  border-radius: 4px; /* Bordes redondeados */
+  cursor: pointer; /* Manito al pasar */
 }
 
 #login-form button:hover {
-  background-color: #45a049;
+  background-color: #45a049; /* Cambiar color de fondo al hacer hover */
 }
 
 /* Estilos para la sección de contenido */
 #admin-content,
 #empleado-content,
 #cliente-content {
-  padding: 20px;
-  text-align: center;
-  margin-top: 20px;
+  padding: 20px; /* Espacio dentro de la sección */
+  text-align: center; /* Centrar el texto */
+  margin-top: 20px; /* Espacio arriba de la sección */
 }
 
 #admin-content {
   background-color: #333; /* Fondo oscuro */
   border: 1px solid #555; /* Bordes más oscuros */
-  border-radius: 8px;
-  color: #fff; /* Color de texto blanco para mayor contraste */
+  border-radius: 8px; /* Bordes redondeados */
+  color: #fff; /* Texto blanco */
 }
 
 #empleado-content {
   background-color: #00796b; /* Un verde oscuro */
   border: 1px solid #004d40; /* Bordes en tono más oscuro */
-  border-radius: 8px;
-  color: #fff; /* Color de texto blanco para mayor contraste */
+  border-radius: 8px; /* Bordes redondeados */
+  color: #fff; /* Texto blanco */
 }
 
 #cliente-content {
   background-color: #212121; /* Fondo oscuro */
   border: 1px solid #757575; /* Bordes en un tono gris oscuro */
-  border-radius: 8px;
-  color: #fff; /* Color de texto blanco para mayor contraste */
+  border-radius: 8px; /* Bordes redondeados */
+  color: #fff; /* Texto blanco */
 }
 
 /* Estilo para el logo y la descripción */
 .main {
-  text-align: center;
-  margin-top: 20px;
+  text-align: center; /* Centrar contenido */
+  margin-top: 20px; /* Separación superior */
 }
 
 .main img {
-  margin-bottom: 20px;
+  margin-bottom: 20px; /* Espacio debajo del logo */
 }
 
 /* Estilo para los botones dentro de un contenedor */
 .button-container {
-  text-align: center;
-  margin-top: 20px;
+  text-align: center; /* Centrar botones */
+  margin-top: 20px; /* Separación superior */
 }
 
 .button-container .btn {
-  padding: 10px 20px;
-  margin: 5px;
-  background-color: #008CBA;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  padding: 10px 20px; /* Relleno del botón */
+  margin: 5px; /* Espacio entre botones */
+  background-color: #008CBA; /* Color de fondo azul */
+  color: white; /* Texto blanco */
+  border: none; /* Sin borde */
+  border-radius: 4px; /* Bordes redondeados */
+  cursor: pointer; /* Cambia el cursor a "pointer" al pasar */
 }
 
 .button-container .btn:hover {
-  background-color: #007B9E;
+  background-color: #007B9E; /* Cambia el color de fondo en hover */
 }
 
 /* Estilo para la tabla de resultados */
 table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
+  width: 100%; /* Ancho completo de la tabla */
+  border-collapse: collapse; /* Evita el colapso de bordes */
+  margin-top: 20px; /* Espacio encima de la tabla */
 }
 
 table th,
 table td {
-  padding: 10px;
-  text-align: center;
-  border: 1px solid #ddd;
+  padding: 10px; /* Espacio dentro de las celdas */
+  text-align: center; /* Alineación central del texto */
+  border: 1px solid #ddd; /* Borde gris claro */
 }
 
 table th {
-  background-color: #f2f2f2;
+  background-color: #f2f2f2; /* Fondo gris claro para encabezados */
 }
 
 /* Estilo para los checkboxes */
@@ -212,21 +212,21 @@ table th {
 
 /* Estilo de la ventana flotante */
 #ventana-flotante {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  position: fixed; /* Posición fija en la pantalla */
+  top: 0; /* Al inicio de la ventana */
+  left: 0; /* A la izquierda */
+  width: 100%; /* Ancho completo */
+  height: 100%; /* Alto completo */
   background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: flex; /* Usar flexbox para centrar contenido */
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
   z-index: 1000; /* Asegurar que esté por encima de otros elementos */
 }
 
 .ventana-contenido {
-  background-color:  #1e1e1e; /* Fondo gris oscuro */
-  padding: 20px; /* Relleno interno */
+  background-color: #1e1e1e; /* Fondo gris oscuro */
+  padding: 20px; /* Espacio interno */
   border-radius: 8px; /* Bordes redondeados */
   width: 80%; /* Ancho relativo al viewport */
   max-width: 600px; /* Ancho máximo */
@@ -260,7 +260,7 @@ table th {
   background-color: white; /* Fondo blanco cuando no está marcado */
   border: 3px solid white; /* Borde blanco más grueso */
   border-radius: 5px; /* Bordes redondeados */
-  position: relative;
+  position: relative; /* Posicionamiento relativo para el contenido */
   cursor: pointer; /* Cambiar el cursor al pasar sobre el checkbox */
   transition: background-color 0.3s, border-color 0.3s; /* Transición suave para el cambio de fondo y borde */
   background-color: green; /* Fondo verde cuando está marcado */
