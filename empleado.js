@@ -72,32 +72,31 @@ document.getElementById('listar-btn').addEventListener('click', function () {
     return;
   }
 
-  // Evitar que se acumulen tablas
-  const tablaExistente = document.querySelector(".tabla-listado");
-  if (tablaExistente) {
-    tablaExistente.remove(); // Eliminar tabla existente si ya hay una mostrada
-  }
-
-  // Crear una nueva tabla para mostrar los resultados guardados
-  const tablaListado = document.createElement("table");
-  tablaListado.classList.add("tabla-listado");
-  tablaListado.innerHTML = `
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Predicción</th>
-        <th>Modelo</th>
-        <th>Acertado</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Los resultados guardados se insertarán aquí -->
-    </tbody>
+  // Crear la ventana emergente
+  const ventanaFlotante = document.createElement("div");
+  ventanaFlotante.id = "ventana-flotante";
+  ventanaFlotante.innerHTML = `
+    <div class="ventana-contenido">
+      <h3>Resultados Guardados</h3>
+      <table class="tabla-listado">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Predicción</th>
+            <th>Modelo</th>
+            <th>Acertado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Resultados serán insertados aquí -->
+        </tbody>
+      </table>
+      <button id="cerrar-ventana">Aceptar</button>
+    </div>
   `;
 
-  const tbody = tablaListado.querySelector('tbody');
-
-  // Iterar sobre los resultados guardados y mostrarlos en la tabla
+  // Agregar los resultados guardados a la tabla dentro de la ventana emergente
+  const tbody = ventanaFlotante.querySelector('tbody');
   resultadosGuardados.forEach((resultados, index) => {
     resultados.forEach((resultado, subIndex) => {
       const fila = document.createElement("tr");
@@ -111,8 +110,13 @@ document.getElementById('listar-btn').addEventListener('click', function () {
     });
   });
 
-  // Agregar la tabla a la página
-  document.body.appendChild(tablaListado); // Agregar al final de la página
+  // Agregar la ventana emergente al body
+  document.body.appendChild(ventanaFlotante);
+
+  // Lógica para el botón "Aceptar" (cerrar ventana)
+  document.getElementById('cerrar-ventana').addEventListener('click', function () {
+    ventanaFlotante.remove();
+  });
 });
 
 // Listener para detectar cambios en los checkboxes (para depuración o lógica adicional)
