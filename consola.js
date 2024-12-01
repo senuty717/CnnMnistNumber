@@ -25,13 +25,20 @@ function mostrarDatosConsola(datos) {
         dato.tiempo = 'Tiempo no disponible';
       }
 
-      // Mostrar top 3 con sus predicciones y porcentajes
-      p.textContent = `Modelo ${dato.modelo}: Predicción ${dato.topPredicciones[0].indice}, 
-                       Tiempo: ${dato.tiempo}, 
-                       Top 3 Predicciones: 
-                       1) ${dato.topPredicciones[0].indice} (${(dato.topPredicciones[0].probabilidad * 100).toFixed(2)}%) 
-                       2) ${dato.topPredicciones[1].indice} (${(dato.topPredicciones[1].probabilidad * 100).toFixed(2)}%) 
-                       3) ${dato.topPredicciones[2].indice} (${(dato.topPredicciones[2].probabilidad * 100).toFixed(2)}%)`;
+      // Asegurarnos de que topPredicciones existe y tiene al menos 3 elementos
+      if (Array.isArray(dato.topPredicciones) && dato.topPredicciones.length >= 3) {
+        // Mostrar el Top 3
+        p.textContent = `Modelo ${dato.modelo}: Predicción ${dato.topPredicciones[0].indice}, 
+                         Tiempo: ${dato.tiempo}, 
+                         Top 3 Predicciones: 
+                         1) ${dato.topPredicciones[0].indice} (${(dato.topPredicciones[0].probabilidad * 100).toFixed(2)}%) 
+                         2) ${dato.topPredicciones[1].indice} (${(dato.topPredicciones[1].probabilidad * 100).toFixed(2)}%) 
+                         3) ${dato.topPredicciones[2].indice} (${(dato.topPredicciones[2].probabilidad * 100).toFixed(2)}%)`;
+      } else {
+        // Si no hay un Top 3 válido, mostrar un mensaje de error
+        p.textContent = `Modelo ${dato.modelo}: Predicción no disponible, Tiempo: ${dato.tiempo}, 
+                         Top 3 Predicciones no válidas`;
+      }
       contenedorDatos.appendChild(p);
     });
   } else {
@@ -46,6 +53,16 @@ function mostrarDatosConsola(datos) {
 function actualizarConsola(predicciones) {
   // Crear un array con los resultados de las predicciones para cada modelo
   const datosConsola = predicciones.map((pred) => {
+    // Asegurarnos de que 'resultados' sea un array
+    if (!Array.isArray(pred.resultados)) {
+      return {
+        indice: pred.indice,
+        tiempo: pred.tiempo,
+        modelo: pred.modelo,
+        topPredicciones: []  // No tiene resultados válidos
+      };
+    }
+
     // Obtener las tres predicciones con mayor probabilidad para cada modelo
     const topPredicciones = pred.resultados
       .map((probabilidad, indice) => ({ indice, probabilidad }))
