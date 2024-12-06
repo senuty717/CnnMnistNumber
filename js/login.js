@@ -35,6 +35,27 @@ async function generarHash(contraseña) {
   return hashHex; // Devuelve el hash en formato hexadecimal
 }
 
+// Función para cerrar sesión
+function cerrarSesion() {
+  // Eliminar el rol almacenado en localStorage
+  localStorage.removeItem("rol");
+
+  // Ocultar todo el contenido relacionado con el usuario (admin, empleado, cliente)
+  adminContent.classList.add("oculto");
+  empleadoContent.classList.add("oculto");
+  clienteContent.classList.add("oculto");
+
+  // Mostrar el formulario de inicio de sesión
+  loginForm.classList.remove("oculto");
+
+  // Ocultar el botón de "Cerrar sesión"
+  const logoutBtn = document.getElementById("logout-btn");
+  logoutBtn.classList.add("oculto");
+
+  // Mostrar mensaje de despedida (opcional)
+  alert("Has cerrado sesión.");
+}
+
 // Función para mostrar el contenido basado en el rol
 function mostrarContenido(rol) {
   // Ocultar todo el contenido de roles (admin, empleado, cliente)
@@ -66,6 +87,13 @@ function mostrarContenido(rol) {
       localStorage.setItem("rol", "cliente");
       break;
   }
+
+  // Mostrar el botón de "Cerrar sesión"
+  const logoutBtn = document.getElementById("logout-btn");
+  logoutBtn.classList.remove("oculto");
+
+  // Ocultar el formulario de login
+  loginForm.classList.add("oculto");
 
   // Eliminar la clase 'oculto' de todos los elementos con la clase 'contenido-roles'
   const contenidosRoles = document.querySelectorAll('.contenido-roles');
