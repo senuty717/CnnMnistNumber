@@ -37,23 +37,14 @@ async function generarHash(contraseña) {
 
 // Función para cerrar sesión
 function cerrarSesion() {
-  // Ocultar todo el contenido de roles (admin, empleado, cliente)
-  const contenidosRoles = document.querySelectorAll('#admin-content, #empleado-content, #cliente-content');
-  contenidosRoles.forEach(function(contenido) {
-    contenido.classList.add("oculto"); // Ocultar los contenidos de roles
-  });
-
-  // Mostrar el formulario de inicio de sesión
-  loginForm.classList.remove("oculto");
-
   // Eliminar el rol del localStorage
   localStorage.removeItem("rol");
 
-  // Ocultar los botones de "Cerrar sesión"
-  const logoutButtons = document.querySelectorAll('.btn');
-  logoutButtons.forEach(function(button) {
-    button.classList.add("oculto");
-  });
+  // Borrar cualquier información de sesión, si es necesario
+  sessionStorage.clear();
+
+  // Recargar la página para reiniciar todo
+  location.reload();
 }
 
 // Función para mostrar el contenido basado en el rol
