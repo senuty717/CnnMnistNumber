@@ -159,18 +159,18 @@ function resample_single(canvas, width, height, resize_canvas) {
 // Carga de modelos de forma asíncrona desde URLs de archivos JSON
 (async () => {
   console.log("Cargando modelo 1...");
-  modelo = await tf.loadLayersModel("https://raw.githubusercontent.com/senuty717/RedesNeuronalesConvolucionalesMNIST/main/modelo_1.json");
+  modelo = await tf.loadLayersModel("https://raw.githubusercontent.com/senuty717/RedesNeuronalesConvolucionalesMNIST/main/modelos/modelo_1.json");
   console.log("Modelo 1 cargado...");
 
   console.log("Cargando modelo 2...");
-  modelo2 = await tf.loadLayersModel("https://raw.githubusercontent.com/senuty717/RedesNeuronalesConvolucionalesMNIST/main/modelo_2.json");
+  modelo2 = await tf.loadLayersModel("https://raw.githubusercontent.com/senuty717/RedesNeuronalesConvolucionalesMNIST/main/modelos/modelo_2.json");
   console.log("Modelo 2 cargado...");
 
   console.log("Cargando modelo 3...");
-  modelo3 = await tf.loadLayersModel("https://raw.githubusercontent.com/senuty717/RedesNeuronalesConvolucionalesMNIST/main/modelo_3.json");
+  modelo3 = await tf.loadLayersModel("https://raw.githubusercontent.com/senuty717/RedesNeuronalesConvolucionalesMNIST/main/modelos/modelo_3.json");
   console.log("Modelo 3 cargado...");
 
   console.log("Cargando modelo 4...");
-  modelo4 = await tf.loadLayersModel("https://raw.githubusercontent.com/senuty717/RedesNeuronalesConvolucionalesMNIST/main/modelo_4.json");
+  modelo4 = await tf.loadLayersModel("https://raw.githubusercontent.com/senuty717/RedesNeuronalesConvolucionalesMNIST/main/modelos/modelo_4.json");
   console.log("Modelo 4 cargado...");
 })();
