@@ -37,23 +37,23 @@ async function generarHash(contraseña) {
 
 // Función para cerrar sesión
 function cerrarSesion() {
-  // Eliminar el rol almacenado en localStorage
-  localStorage.removeItem("rol");
-
-  // Ocultar todo el contenido relacionado con el usuario (admin, empleado, cliente)
-  adminContent.classList.add("oculto");
-  empleadoContent.classList.add("oculto");
-  clienteContent.classList.add("oculto");
+  // Ocultar todo el contenido de roles (admin, empleado, cliente)
+  const contenidosRoles = document.querySelectorAll('#admin-content, #empleado-content, #cliente-content');
+  contenidosRoles.forEach(function(contenido) {
+    contenido.classList.add("oculto"); // Ocultar los contenidos de roles
+  });
 
   // Mostrar el formulario de inicio de sesión
   loginForm.classList.remove("oculto");
 
-  // Ocultar el botón de "Cerrar sesión"
-  const logoutBtn = document.getElementById("logout-btn");
-  logoutBtn.classList.add("oculto");
+  // Eliminar el rol del localStorage
+  localStorage.removeItem("rol");
 
-  // Mostrar mensaje de despedida (opcional)
-  alert("Has cerrado sesión.");
+  // Ocultar los botones de "Cerrar sesión"
+  const logoutButtons = document.querySelectorAll('.btn');
+  logoutButtons.forEach(function(button) {
+    button.classList.add("oculto");
+  });
 }
 
 // Función para mostrar el contenido basado en el rol
@@ -67,33 +67,26 @@ function mostrarContenido(rol) {
   switch (rol) {
     case 'admin':
       adminContent.classList.remove("oculto"); // Muestra el contenido del administrador
+      // Mostrar el botón de "Cerrar sesión" para el admin
+      document.getElementById("logout-btn-admin").classList.remove("oculto");
       // Guardar el rol en localStorage para uso futuro
       localStorage.setItem("rol", "admin");
-      mostrarDatosConsola([  // Mostrar los datos de la consola después de iniciar sesión como admin
-        "Modelo 1: Predicción correcta",
-        "Modelo 2: Predicción incorrecta",
-        "Modelo 3: Predicción correcta",
-        "Modelo 4: Predicción incorrecta"
-      ]);
       break;
     case 'empleado':
       empleadoContent.classList.remove("oculto"); // Muestra el contenido del empleado
+      // Mostrar el botón de "Cerrar sesión" para el empleado
+      document.getElementById("logout-btn-empleado").classList.remove("oculto");
       // Guardar el rol en localStorage para uso futuro
       localStorage.setItem("rol", "empleado");
       break;
     case 'cliente':
       clienteContent.classList.remove("oculto"); // Muestra el contenido del cliente
+      // Mostrar el botón de "Cerrar sesión" para el cliente
+      document.getElementById("logout-btn-cliente").classList.remove("oculto");      
       // Guardar el rol en localStorage para uso futuro
       localStorage.setItem("rol", "cliente");
       break;
   }
-
-  // Mostrar el botón de "Cerrar sesión"
-  const logoutBtn = document.getElementById("logout-btn");
-  logoutBtn.classList.remove("oculto");
-
-  // Ocultar el formulario de login
-  loginForm.classList.add("oculto");
 
   // Eliminar la clase 'oculto' de todos los elementos con la clase 'contenido-roles'
   const contenidosRoles = document.querySelectorAll('.contenido-roles');
